@@ -1,0 +1,23 @@
+- `cd`: changes the working directory to your home directory
+- `cd -`: changes the working directory to the previous working directory
+- `cd ~user_name`: changes the working directory to the home directory of `user_name`
+# Navigation
+- Like Windows, a Unix-like operating system such as Linux organizes its files in what is called a *hierarchical directory structure*
+    - This means they are organized in a tree-like pattern of directories (folders)
+- The first directory in the file system is called the *root* directory
+- Unlike Windows, which has a separate file system tree for each storage device, Unix-like systems such as Linux always have a **single file system tree**, regardless of how many drives or storage devices are attached to the computer
+- `pwd`: print working directory
+- When we first log in to our system (or start a terminal emulator session), our current working directory is set to our *home* directory. Each user account is given its own home directory, and it is the only place a regular user is allowed to write files
+- `ls`: list directory contents
+- `cd`: change directory
+- Absolute pathnames
+    - An absolute pathname begins with the root directory (represented by the leading slash `/` in the pathname) and follows the tree branch by branch until the path to the desired directory or file is completed
+- Relative pathnames
+    - A relative pathname starts from the working directory
+    - The `.` notation refers to the working directory, and the `..` notation refers to the working directory’s parent directory
+    - In general, if we do not specify a pathname to something, the working directory will be assumed. We can omit the `./` part because it is implied
+- Filenames that begin with a period `.` character are **hidden** (`ls -a`)
+- Filenames and commands in Linux, like Unix, are case sensitive
+- Though Linux supports long filenames that may contain embedded spaces and punctuation characters, limit the punctuation characters in the names of files you create to **period, dash, and underscore**. Most important, do not embed spaces in filenames. If you want to represent spaces between words in a filename, use underscore characters
+- Linux has **no concept of a “file extension”** like some other operating systems. You may name files any way you like. The contents or purpose of a file is determined by other means
+    - Although Unix-like operating systems don’t use file extensions to determine the contents/purpose of files, many application programs do
