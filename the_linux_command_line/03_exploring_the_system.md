@@ -22,6 +22,7 @@
     root | The name of the group that owns the file |
     4096 | Size of the file in **bytes** |
     bin/ | Name of the directory |
+    | |
 
 - One of the common ideas in Unixlike operating systems such as Linux is that **"everything is a file"**
 - `less` command is a program to view **text files**
@@ -39,6 +40,7 @@
     n | Search for the next occurrence of the previous search |
     **ESC+u** | toggle search highlight |
     **h** | Display help screen |
+    | |
 
     - If we accidentally attempt to view a non-text file and it scrambles the terminal window, we can recover by entering the `reset` command
     - > The `less` program was designed as an improved replacement of an earlier Unix program called `more`. The name `less` is a play on the phrase "less is more" — a motto of modernist architects and designers. `less` falls into the class of programs called pagers, programs that allow the easy viewing of long text documents in a page-by-page manner. Whereas the `more` program could only page forward, the less program allows paging both forward and backward and has many other features as well

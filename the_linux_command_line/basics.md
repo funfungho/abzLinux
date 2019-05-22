@@ -27,3 +27,4 @@
     `/usr/share/doc` | Most packages installed on the system will include some kind of documentation. In `/usr/share/doc`, we will find documentation files organized by package
     `/var` | With the exception of `/tmp` and `/home`, the directories we have looked at so far remain relatively static; that is, their contents don’t change. The `/var` directory tree is where data that is likely to **change** is stored. Various databases, spool files, user mail, and so forth, are located here
     `/var/log` | `/var/log` contains log files, records of various system activity. These are important and should be monitored from time to time. The most useful ones are `/var/log/messages` and `/var/log/syslog`. Note that for security reasons on some systems, you must be the superuser to view log files
+    | |
