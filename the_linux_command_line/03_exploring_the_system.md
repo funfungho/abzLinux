@@ -17,7 +17,7 @@
     Field | Meaning |
     --|--|
     -rw-r--r-- | Access rights to the file. The first character indicates the type of file. A leading dash `-` means a regular file; a `d` indicates a directory. The next 3 characters are the access rights for the file’s **owner**, the next 3 are for **members** of the file’s group, and the final three are for **everyone else** |
-    1 | File’s number (数目) of hard links |
+    1 | File’s number (数目) of **hard links** |
     root | The username of the file’s owner |
     root | The name of the group that owns the file |
     4096 | Size of the file in **bytes** |
