@@ -47,7 +47,7 @@
     mkdir dir1 dir2
     ```
 
-    - 3 periods following an argument in the description of a command that the argument can be ***repeated***
+    - Three periods following an argument in the description of a command that the argument can be ***repeated***
 ## `cp`
 - `cp` copies files or directories
     - `cp item1 item2` copies the single file or directory `item1` to the file or directory `item2`
@@ -157,8 +157,8 @@
     - The data part containing the file’s contents
     - The name part that holds the file’s name
 - When we create hard links, we are actually creating **additional name parts** that all **refer to the same data part**
-- 不同的 hard link 指向同一个地址（inode）的指针变量
-- 编辑 hard link 也会改变其指向的 item
+- 同一 item 的不同 hard link 可以理解成指向（存放）同一个地址（inode）的指针变量
+- **编辑 hard link 也会改变其指向的 item**
 - The system assigns a chain of disk blocks to what is called an inode, which is then associated with the name part
     - Each hard link therefore refers to a specific inode
 - `ls -i` 显示 inode
