@@ -93,7 +93,7 @@
 
     - `man -k` performs the same function as `apropos`
 ### `whatis` - displays one-line manual page descriptions
-- The whatis program displays the name and a one-line description of a man page matching a specified keyword
+- The `whatis` program displays the name and a one-line description of a man page matching a specified keyword
 	
     ```bash
     whatis ls
