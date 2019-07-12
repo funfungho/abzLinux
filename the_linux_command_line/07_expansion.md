@@ -75,17 +75,25 @@
 - With brace expansion, you can create multiple text strings from a pattern containing braces
 	
     ```bash
+    # Front-preamble, Back-postscript
     echo Front-{A,B,C}-Back
+
     echo Number_{1..5}
+
+    # In bash version 4.0 and newer, integers may also be zero-padded (补零)
     echo {01..15}
     echo {001..15}
+
+    # reverse order
     echo {Z..A}
+
+    # nested
     echo a{A{1,2},B{3,4}}b
     ```
 
-- Patterns to be brace expanded may contain a leading portion called a *preamble* and a trailing portion called a *postscript*
-- The brace expression itself may contain either a comma-separated list of strings or a range of integers or single characters
-    - The pattern may not contain unquoted whitespace
+    - Patterns to be brace expanded may contain a leading portion called a *preamble* and a trailing portion called a *postscript*
+    - The brace expression itself may contain either a comma-separated list of strings or a range of integers or single characters
+        - The pattern may not contain unquoted whitespace
 - Brace expansions may be nested
 - The most common application is to make lists of files or directories to be created
 	
@@ -103,10 +111,9 @@
     ```
 
     - The variable `USER` contains your username
-- With other types of expansion, if you mistype a pattern, the expansion will not take place, and the echo command will simply display the mistyped pattern
-- With parameter expansion, if you misspell the name of a variable, the expansion will still take place but will result in an **empty string**
+- With other types of expansion, if you mistype a pattern, the expansion will not take place, and the `echo` command will simply display the mistyped pattern. With parameter expansion, if you misspell the name of a variable, the expansion will still take place but will result in an **empty string**
 ### Command substitution
-- Command substitution allows us to use the output of a command as an expansion
+- Command substitution allows us to **use the output of a command as an expansion**
 	
     ```bash
     echo $(ls)
@@ -133,39 +140,36 @@ echo this is a       test
 echo The total is $100.00
 ```
 
-- The shell provides a mechanism called quoting to selectively suppress unwanted expansions
+- The shell provides a mechanism called *quoting* to selectively suppress unwanted expansions
 ### Double quotes
-- If we place text inside double quotes, all the special characters used by the shell lose their special meaning and are treated as ordinary characters
-    - The exceptions are `$` (dollar sign), `\` (backslash), and backtick
-- This means that word splitting, pathname expansion, tilde expansion, and brace expansion are suppressed
-	
-    ```bash
-    ls -l "two words.txt"
-    mv "two words.txt" two_words.txt
-    ```
+- If we place text inside double quotes, all the special characters used by the shell lose their special meaning and are treated as ordinary characters. The exceptions are `$` (dollar sign), `\` (backslash), and backtick &#96;
+    - This means that word splitting, pathname expansion, tilde expansion, and brace expansion are suppressed
+    	
+        ```bash
+        ls -l "two words.txt"
+        mv "two words.txt" two_words.txt
+        ```
 
-- Parameter expansion, arithmetic expansion, and command substitution are still carried out
-	
-    ```bash
-    echo "$USER $((2+2)) $(cal)"
-    ```
+    - Parameter expansion, arithmetic expansion, and command substitution are still carried out
+    	
+        ```bash
+        echo "$USER $((2+2)) $(cal)"
+        ```
 
-- Using double quotes, we can cope with filenames containing embedded spaces
-- By default, word splitting looks for the presence of spaces, tabs, and newlines (line feed characters) and treats them as delimiters between words
+- Using double quotes, we can cope with filenames containing embedded spaces. By default, word splitting looks for the presence of spaces, tabs, and newlines (line feed characters) and treats them as delimiters between words
     - This means unquoted spaces, tabs, and newlines are not considered to be part of the text. They serve only as **separators**
-    - If we add double quotes, then word splitting is suppressed and the embedded spaces are not treated as delimiters; rather, they become part of the argument
-        - Once the double quotes are added, our command line contains a command followed by a single argument
+    - If we add double quotes, then word splitting is suppressed and the embedded spaces are not treated as delimiters; rather, they become part of the argument. Once the double quotes are added, our command line contains a command followed by a **single argument**
 - The fact that newlines are considered delimiters by the word-splitting mechanism causes an interesting, albeit subtle, effect on command substitution
 	
     ```bash
-    echo $(cal)
+    echo $(cal)     # word splitting takes over
     echo "$(cal)"
     ```
 
     - In the first instance, the unquoted command substitution resulted in a command line containing 38 arguments
     - In the second, it resulted in a command line with one argument that includes the embedded spaces and newlines
 ### Single quotes
-- Use single quotes to suppress all expansions
+- Use single quotes to **suppress all expansions** (including escaping character `\`)
 	
     ```bash
     echo text ~/*.txt {a,b} $(echo foo) $((2+2)) $USER
@@ -175,8 +179,12 @@ echo The total is $100.00
 
 ### Escaping characters
 - Escaping character (`\`) often is done inside double quotes to selectively prevent an expansion
-- It is also common to use escaping to eliminate the special meaning of a character in a filename
-    - It is possible to use characters in filenames that normally have special meaning to the shell. These would include `$`, `!`, `&`, spaces, and others
+- It is also common to use escaping to eliminate the special meaning of a character in a filename to use characters that normally have special meaning to the shell. These would include `$`, `!`, `&`, spaces, and others
+	
+    ```bash
+    mv bad\&filename good_filename
+    ```
+
 - To allow a backslash character to appear, escape it by typing `\\`
 - Within single quotes, the backslash loses its special meaning and is treated as an ordinary character
 	
@@ -186,13 +194,14 @@ echo The total is $100.00
     ```
 
 ### Backslash escape sequences
-- In addition to its role as the escape character, the backslash is used as part of a notation to represent certain special characters called control codes
-    - The idea behind this representation using the backslash originated in the C programming language and has been adopted by many others, including the shell
-- The first 32 characters in the ASCII coding scheme are used to transmit commands to Teletype-like devices
-    - Some of these codes are familiar (tab, backspace, line feed, and carriage return), while others are not (null, end-of-transmission, and acknowledge)
-- Adding the `-e` option to echo will enable interpretation of escape sequences. You can also place them inside `$' '`
+- In addition to its role as the escape character, the backslash is used as part of a notation to represent certain special characters called *control codes*
+- The idea behind this representation using the backslash originated in the C programming language and has been adopted by many others, including the shell
+    - The first 32 characters in the ASCII coding scheme are used to transmit commands to Teletype-like devices
+        - Some of these codes are familiar (tab, backspace, line feed, and carriage return), while others are not (null, end-of-transmission, and acknowledge)
+- Adding the `-e` option to `echo` will enable interpretation of escape sequences. You can also place them inside `$' '`
 	
     ```bash
+    # primitive timer
     # /a: Bell (an alert that causes the computer to beep)
     sleep 3; echo -e "Time's up\a"
     sleep 3; echo "Time's up" $'\a'
