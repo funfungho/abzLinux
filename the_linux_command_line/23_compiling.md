@@ -77,6 +77,11 @@ tar xzf diction-1.11.tar.gz
 	
     ```bash
     ./configure
+    # configure 脚本已经尽量考虑到不同系统的差异，并且对各种编译参数给出了默认值
+    # 如果用户的系统环境比较特别，或者有一些特定的需求，就需要手动向 configure 脚本提供编译参数
+    # 指定安装后的文件保存在 www 目录，并且编译时加入mysql 模块的支持
+    # ./configure --prefix=/www --with-mysql
+
     make
     ```
 
@@ -84,8 +89,9 @@ tar xzf diction-1.11.tar.gz
 - The `configure` program is a shell **script that** is supplied with the source tree. Its job is to **analyze the build environment**
     - Most source code is designed to be *portable*. That is, it is designed to build on more than one kind of Unixlike system. But to do that, the source code may need to undergo slight adjustments during the build to accommodate differences between systems
     - `configure` also checks to see that necessary external tools and components are installed
+    - > 通常由 autoconf 工具生成
 - What’s important running `./configure` is that there are no error messages. If there were, the configuration failed, and the program will not build until the errors are corrected
-- `configure` created several new files in our source directory. The most important one is the *makefile*
+- `configure` created several new files in our source directory. The most important one is the ***makefile***
 - The makefile is a configuration file that instructs the `make` program exactly how to build the program. Without it, `make` will refuse to run
     - The `make` program takes as input a makefile (which is normally named `Makefile`), which describes the relationships and dependencies among the components that comprise the finished program
 - Rather than simply building everything again, `make` only builds what needs building
@@ -123,3 +129,4 @@ tar xzf diction-1.11.tar.gz
     ```
 
 - The `make` program can be used for any task that needs to maintain a `target/dependency` relationship, not just for compiling source code
+- > http://www.ruanyifeng.com/blog/2014/11/compiler.html

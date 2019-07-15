@@ -3,11 +3,10 @@
 - Many of the programs produce output that often consists of 2 types
     1. The program’s results; that is, the data the program is designed to produce
     2. Status and error messages that tell us how the program is getting along
-- Keeping with the Unix theme of “everything is a file,” programs such as `ls` actually send their results to a special file called standard output (often expressed as stdout) and their status messages to another file called standard error (stderr)
+- Keeping with the Unix theme of **“everything is a file”**, programs such as `ls` actually send their results to **a special file called *standard output*** (often expressed as *stdout*) and their status messages to **another file called *standard error*** (*stderr*)
     - By default, both standard output and standard error are **linked to the screen** and not saved into a disk file
-- Many programs take input from a facility called standard input (stdin), which is, by default, attached to the **keyboard**
-- I/O redirection allows us to change where output goes and where input comes from
-    - Normally, output goes to the screen and input comes from the keyboard
+- Many programs take input from a facility called standard input (*stdin*), which is, by default, attached to the **keyboard**
+- Normally, output goes to the screen and input comes from the keyboard. I/O redirection allows us to change where output goes and where input comes from
 - There are many commands that make use of standard input and output, and almost all command line programs use standard error to display their informative messages
 ## Redirecting standard output
 - Use `>` redirection operator followed by the name of the file
@@ -26,7 +25,7 @@
         - Because we redirected only standard output and not standard error, the error message was still sent to the screen
     - When we redirect output with the `>` redirection operator, the destination file is always **rewritten from the beginning**
         - Because `ls` command generated no results and only an error message, the redirection operation started to rewrite the file and then stopped because of the error, resulting in its truncation
-        - Trick to truncate a file (or create a new, empty file): `> ls-output.txt`
+        - **Trick** to truncate a file (or create a new, empty file): `> ls-output.txt`
 - Append redirected output to a file instead of overwriting the file from the beginning using `>>`
     - Using the `>>` operator will result in the output being appended to the file
     - If the file does not already exist, it is created just as though the `>` operator had been used
