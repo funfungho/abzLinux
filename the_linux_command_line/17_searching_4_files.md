@@ -66,7 +66,7 @@
     | |    
 
 - Common tests
-    - In cases where a numeric argument is required, the same + and - notation can be applied
+    - In cases where a numeric argument is required, the same **+** and **-** notation can be applied
     
     Test | Description |
     --|--|
@@ -159,13 +159,14 @@
 - Invoke arbitrary commands with the `-exec` action
 	
     ```bash
-    -exec command {};
+    -exec command '{}' ';'
 
     -exec rm '{}' ';'
     ```
 
     - `command` is the name of a command, `{}` is a symbolic representation of the **current pathname**, and the semicolon is a required delimiter indicating the end of the command
     - Because the brace and semicolon characters have special meaning to the shell, they must be **quoted or escaped**
+    - > [x] `{}` not quoted or escaped in this [example](https://stackoverflow.com/questions/22388480/how-to-pipe-the-results-of-find-to-mv-in-linux)
 - Execute a user-defined action interactively by using the `-ok` action in place of `-exec` (the user is prompted before execution of each specified command)
 	
     ```bash
@@ -195,6 +196,8 @@
             ```
         
 ## `xargs`
+- https://www.mkssoftware.com/docs/man1/xargs.1.asp
+    - > https://www.gnu.org/software/findutils/manual/html_node/find_html/xargs-options.html#xargs-options
 - `xargs` accepts input from standard input and converts it into an argument list for a specified command
 	
     ```bash
@@ -214,6 +217,15 @@
         ```
     
         - Using this technique, we can ensure that all files, even those containing embedded spaces in their names, are handled correctly
+- `-I` explanation
+
+    ```bash
+    # -I causes xargs to consider each full line in the standard input to be a single argument
+                                                 # 声明 placeholder 名为 '{}'，可在后续命令中多次使用 
+    find . -type f -mtime -1 | grep pdf | xargs -I '{}' ls {}
+    ```
+
+    - > https://www.gnu.org/software/findutils/manual/html_node/find_html/xargs-options.html#xargs-options
 ## Practice
 
 ```bash

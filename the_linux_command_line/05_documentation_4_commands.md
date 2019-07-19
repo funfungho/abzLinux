@@ -114,8 +114,7 @@
     page down or spacebar | Display next page |
     n | Next—display the next node |
     p | Previous—display the previous node |
-    U | Up—display the parent node of the currently displayed
-    node, usually a menu |
+    U | Up—display the parent node of the currently displayed node, usually a menu |
     enter | Follow the hyperlink at the cursor location |
     Q | Quit |
     | |

@@ -162,10 +162,12 @@ Result | --- rw- r-- r--
 ### Special permissions
 - Though we usually see an octal permission mask expressed as a three-digit number, it is more technically correct to express it in **four digits**. Because, in addition to read, write, and execute permissions, there are some other, less used, permissions settings
 - The first of these is the `setuid` bit (octal 4000)
-    - When applied to an executable file, it changes the effective user ID from that of the real user (the user actually running the program) to that of the program’s owner
-    - When an ordinary user runs a program that is `setuid` root, the program runs with the effective **privileges of the superuser**. This allows the program to access files and directories that an ordinary user would normally be prohibited from accessing
+    - When applied to an executable file, it changes the *effective user ID* from that of the real user (the user actually running the program) to that of the program’s owner
+    - When an ordinary user runs a program that is `setuid root`, the program runs with the effective **privileges of the superuser**. This allows the program to access files and directories that an ordinary user would normally be prohibited from accessing
     - Most often this is given to a few programs owned by the superuser
     - Clearly, because this raises security concerns, the number of `setuid` programs must be held to an absolute minimum
+        - In the UNIX System, privileges, such as being able to change the system's notion of the current date, and access control, such as being able to read or write a particular file, are based on user and group IDs. When our programs need additional privileges or need to gain access to resources that they currently aren't allowed to access, they need to change their user or group ID to an ID that has the appropriate privilege or access. Similarly, when our programs need to lower their privileges or prevent access to certain resources, they do so by changing either their user ID or group ID to an ID without the privilege or ability access to the resource
+        - > http://poincare.matf.bg.ac.rs/~ivana/courses/ps/sistemi_knjige/pomocno/apue/APUE/0201433079/ch08lev1sec11.html
 - The second less-used setting is the `setgid` bit (octal 2000), which, like the `setuid` bit, changes the effective group ID from the real group ID of the real user to that of the file owner
     - If the `setgid` bit is set on a directory, **newly created files** in the directory will be given the group ownership of the directory rather the group ownership of the file’s creator
     - This is useful in a shared directory when members of a common group need access to all the files in the directory, regardless of the file owner’s primary group
