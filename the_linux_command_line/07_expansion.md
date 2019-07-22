@@ -111,7 +111,7 @@
     ```
 
     - The variable `USER` contains your username
-- With other types of expansion, if you mistype a pattern, the expansion will not take place, and the `echo` command will simply display the mistyped pattern. With parameter expansion, if you misspell the name of a variable, the expansion will still take place but will result in an **empty string**
+- With other types of expansion, if you mistype a pattern, the expansion will not take place, and the `echo` command will simply display the **mistyped pattern**. With parameter expansion, if you misspell the name of a variable, the expansion will still take place but will result in an **empty string**
 ### Command substitution
 - Command substitution allows us to **use the output of a command as an expansion**
 	
