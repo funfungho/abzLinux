@@ -106,7 +106,7 @@
     # type in some text then press ctrl-d
     ```
 
-- Use the `<` redirection operator to redirect standard input
+- Use the `<` redirection operator to **redirect standard input**
 	
     ```bash
     cat < lazy_dog.txt
