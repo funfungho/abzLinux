@@ -67,7 +67,7 @@
 
     - The first network interface `lo` is he *loopback interface*, a virtual interface that the system uses to “talk to itself”
     - The second, called `eth0`, is the Ethernet interface
-- When performing casual network diagnostics, the important things to look for are the presence of the word **UP** in the **first** line for each interface, indicating that the network interface is **enabled**, and the presence of a valid IP address in the `inet` field on the **third** line
+- When performing casual network diagnostics, the important things to look for are the presence of the word **UP** in the **first line** for each interface, indicating that the network interface is **enabled**, and the presence of a valid IP address in the `inet` field on the **third line**
     - For systems using Dynamic Host Configuration Protocol (DHCP), a valid IP address in this field will verify that the DHCP is working
 ### `netstat`
 - The `netstat` program is used to examine various **network settings and statistics**
