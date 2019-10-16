@@ -1,8 +1,17 @@
+<!-- review 2019-10-16 09:42:33 -->
+- **A vertical bar character indicates mutually exclusive items**
+- The “manual” that `man` displays is **broken into sections** and covers not only user commands but also system administration commands, programming interfaces, file formats, and more
+
+    ```bash
+    man section_number search_term
+    ```
+
+- Use `alias` without arguments to see all the aliases defined in the environment
 # Documentation for commands
 - A command can be one of 4 things
     1. An **executable program** like all those files in `usr/bin`
         - Programs can be compiled binaries such as programs written in C and C++, or programs written in scripting languages such as the shell, Python
-    2. A command build into the shell itself (**shell builtins**)
+    2. A command build into the shell itself (*shell builtins*)
         - `bash` supports a number of commands internally called shell builtins (`cd`)
     3. A shell function
         - Shell functions are miniature shell scripts incorporated into the environment
@@ -26,7 +35,7 @@
     which ls    # /bin/ls
     ```
 
-- `which` works only for executable programs, not builtins or aliases that are substitutes for actual executable programs
+- `which` works **only for executable** programs, not builtins or aliases that are substitutes for actual executable programs
 	
     ```bash
     which cd
@@ -37,11 +46,12 @@
 - `bash` has an builtin facility available for each of the shell builtins
 	
     ```bash
+    type cd     # cd is a shell builtin
     help cd
     ```
 
 - When **square brackets** appear in the description of a command's syntax, they indicate **optional items**
-- A vertical bar character indicates mutually exclusive items
+- **A vertical bar character indicates mutually exclusive items**
     `cd [-L|[-P[-e]]] [dir]` says `cd` may be followed optionally by either a `-L` or a `-P` and further, if the `-P` option is specified then the `-e` option may also be included followed by the optional argument `dir`
 ### `--help` - display usage information
 - Many **executable programs** support a `--help` option that displays a description of the command's supported syntax and options
@@ -50,7 +60,7 @@
     mkdir --help
     ```
 
-    - > Some programs doesn't support the `--help` option, but try it anyway. Often it results in an error message that will reveal the same usage information
+    - Some programs doesn't support the `--help` option, but try it anyway. Often it results in an error message that will reveal the same usage information
 ### `man` - display a program's manual page
 - Most executable programs intended for command line use provide a formal piece of documentation called a manual page or man page
 - A special paging program called `man` is used to view them
@@ -59,9 +69,9 @@
     man program_name
     ```
 
-- `man` program do not usually include examples and are intended as a reference, not a tutorial
+- `man` program do not usually include examples and are intended as a **reference**, not a tutorial
 - On most Linux systems, `man` uses `less` to display the manual page, so all of the familiar `less` commands work while displaying the page
-- The “manual” that man displays is broken into sections and covers not only user commands but also system administration commands, programming interfaces, file formats, and more
+- The “manual” that `man` displays is **broken into sections** and covers not only user commands but also system administration commands, programming interfaces, file formats, and more
 
     Section | Contents |
     --|--|
@@ -83,7 +93,7 @@
     man section_number search_term
     ```
 
-- `man 5 passwd` displays the man page describing the file format of the `/etc/passwd` file
+    - `man 5 passwd` displays the man page describing the file format of the `/etc/passwd` file
 ### `apropos` - displays appropriate commands
 - It is also possible to search the list of man pages for possible matches based on a search term
 	
@@ -97,11 +107,14 @@
 	
     ```bash
     whatis ls
+    # ls (1)               - list directory contents
+    # ls (1p)              - list directory contents
     ```
 
+    - "(1p)" is also a section
 ### `info` - display a program's info entry
 - The GNU Project provides an alternative to man pages for their programs, called `info`
-- Info pages are hyperlinked much like web pages
+- Info pages are **hyperlinked** much like web pages
 - The `info` program reads info files, which are tree structured into individual nodes, each containing a single topic
 - Info files contain hyperlinks that can move you from node to node
 - A hyperlink can be identified by its **leading asterisk** and is activated by placing the cursor upon it and pressing enter
@@ -139,6 +152,7 @@
     ```bash
     # check if the name has been used
     type foo
+
     alias foo='cd /usr; ls; cd -'
     type foo
     unalias foo

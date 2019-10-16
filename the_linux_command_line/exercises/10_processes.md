@@ -1,3 +1,5 @@
+- `ps -p 1337`
+---
 # Processes
 - Modern operating systems are usually multitasking, meaning they create the illusion of doing more than one thing at once by rapidly **switching** from one executing program to another
 - The kernel manages this through the use of *processes*. Processes are how Linux organizes the different programs waiting for their turn at the CPU

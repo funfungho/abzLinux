@@ -1,10 +1,12 @@
+<!-- review 2019-10-16 14:17:44 -->
+- The redirection operator connects a command with a **file**, while the pipeline operator connects the output of one command with the input of a second command
 # I/O redirection
 ## Standard input, output, and error
 - Many of the programs produce output that often consists of 2 types
     1. The program’s results; that is, the data the program is designed to produce
     2. Status and error messages that tell us how the program is getting along
 - Keeping with the Unix theme of **“everything is a file”**, programs such as `ls` actually send their results to **a special file called *standard output*** (often expressed as *stdout*) and their status messages to **another file called *standard error*** (*stderr*)
-    - By default, both standard output and standard error are **linked to the screen** and not saved into a disk file
+- By default, both standard output and standard error are **linked to the screen** and not saved into a disk file
 - Many programs take input from a facility called standard input (*stdin*), which is, by default, attached to the **keyboard**
 - Normally, output goes to the screen and input comes from the keyboard. I/O redirection allows us to change where output goes and where input comes from
 - There are many commands that make use of standard input and output, and almost all command line programs use standard error to display their informative messages
@@ -21,8 +23,7 @@
     less ls-output.txt # empty
     ```
 
-    - `ls` program does not send its error messages to standard output. Instead, like most well-written Unix programs, it sends its error messages to standard error
-        - Because we redirected only standard output and not standard error, the error message was still sent to the screen
+    - `ls` program does not send its error messages to standard output. Instead, like most well-written Unix programs, it sends its error messages to standard error. Because we redirected only standard output and not standard error, the error message was still sent to the screen
     - When we redirect output with the `>` redirection operator, the destination file is always **rewritten from the beginning**
         - Because `ls` command generated no results and only an error message, the redirection operation started to rewrite the file and then stopped because of the error, resulting in its truncation
         - **Trick** to truncate a file (or create a new, empty file): `> ls-output.txt`
@@ -31,10 +32,8 @@
     - If the file does not already exist, it is created just as though the `>` operator had been used
 ## Redirecting standard error
 - To redirect standard error, we must refer to its *file descriptor*
-- A program can produce output on any of several numbered file streams
-    - While we have referred to the first 3 of these file streams as standard input, output, and error, the shell references them internally as file descriptors 0, 1, and 2, respectively
-- The shell provides a notation for redirecting files using the file descriptor number
-- Because standard error is the same as file descriptor number 2, we can redirect standard error with this notation
+- A program can produce output on any of several numbered **file streams**. While we have referred to the first 3 of these file streams as standard input, output, and error, the shell references them internally as file descriptors 0, 1, and 2, respectively
+- The shell provides a notation for redirecting files using the **file descriptor number**. Because standard error is the same as file descriptor number 2, we can redirect standard error with this notation
 	
     ```bash
     ls -l /bin/usr 2> ls-error.txt
@@ -55,7 +54,7 @@
     ```
 
     1. First we redirect standard output to the file `ls-output.txt`, and then we redirect file descriptor 2 (standard error) to file descriptor 1 (standard output) using the notation `2>&1`
-        - The redirection of standard error must always occur after redirecting standard output or it doesn’t work
+        - The redirection of standard error must always occur **after** redirecting standard output or it doesn’t work
         	
             ```bash
             # redirects standard error to the file ls-output.txt
@@ -84,7 +83,7 @@
     cat filename
     ```
 
-- Because `cat` can accept more than one file as an argument, it can also be used to join files together
+- Because `cat` can accept more than one file as an argument, it can also be used to **join files together**
     - Suppose we have downloaded a large file that has been split into multiple parts (multimedia files are often split this way on Usenet), and we want to join them back together
     	
         ```bash
@@ -93,7 +92,7 @@
         cat movie.mpeg.0* > movie.mpeg
         ```
     
-        - Because wildcards always expand in sorted order, the arguments will be arranged in the correct order
+        - Because **wildcards always expand in sorted order**, the arguments will be arranged in the correct order
 - If `cat` is not given any arguments, it reads from standard input, and since standard input is, by default, attached to the keyboard, it’s waiting for us to type something
 	
     ```bash
@@ -120,7 +119,7 @@
     command1 | command2
     ```
 
-- `less` accepts standard input. We can use `less` to display, page by page, the output of any command that sends its results to standard output
+- **`less` accepts standard input**. We can use `less` to display, page by page, the output of any command that sends its results to standard output
 	
     ```bash
     ls -l /usr/bin | less
@@ -153,6 +152,7 @@
 	
     ```bash
     ls /bin /usr/bin | sort | uniq | less
+
     uniq a.txt | less
 
     # add -d to see the list of duplicates
@@ -183,7 +183,7 @@
     ```
 
     - Standard output is also file
-- `-i` causes grep to ignore case when performing the search (normally searches are case sensitive)
+- `-i` causes grep to **ignore case** when performing the search (normally searches are case sensitive)
 - `-v` tells `grep` to print only those lines that do not match the pattern
 ### `head`/`tail`: print first/last part of files
 - The `head` command prints the first 10 lines of a file, and the `tail` command prints the last 10 lines by default. This can be adjusted with the `-n` option
@@ -204,4 +204,4 @@
     ls /usr/bin | tee ls.txt | grep zip
     ```
 
-- This is useful for capturing a pipeline’s contents at an intermediate stage of processing
+    - This is useful for capturing a pipeline’s contents at an intermediate stage of processing

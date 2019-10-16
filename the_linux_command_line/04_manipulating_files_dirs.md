@@ -1,4 +1,8 @@
+<!-- review 2019-10-15 11:35:21 -->
+- Three periods following an argument in the description of a command that the argument can be ***repeated***
+- Wildcards can be used with any command that accepts filenames as arguments
 - `cp -u`: copy only when the SOURCE file is newer than the destination file or when the destination file is missing
+- If `-i` option is not specified, `cp` will silently (meaning there will be no warning) overwrite files
 # Manipulating files and directories
 ## Wildcards
 - Wildcards (globbing)
@@ -8,11 +12,11 @@
     `*` | Matches any characters |
     `?` | Matches any single character |
     `[characters]` | Matches any character that is a member of the set `characters` |
-    `[!characters]` | Matches any character that is not a member of the set `characters` |
+    `[!characters]` | Matches any character that is not a member of the **set** `characters` |
     `[[:class:]]` | Matches any character that is a member of the specified `class` |
     | |
 
-- Commonly used character class
+- Commonly used *character class*
 
     Character class | Meaning |
     --|--|
@@ -39,7 +43,7 @@
     `*[[:lower:]123]` | Any file ending with a lowercase letter or the numerals 1, 2, or 3 |
 
 - Wildcards work in the GUI, too
-- Wildcards can be used with any command that accepts **filenames** as arguments
+- Wildcards can be used with any command that accepts filenames as arguments
 ## `mkdir`
 - `mkdir directory...`
 	
@@ -113,7 +117,7 @@
     - Linux assumes you’re smart and you know what you’re doing
     - `rm * .html`
         - the `rm` command will delete all the files in the directory and then **complain** that there is no file called `.html`
-- A useful **tip**: whenever you use wildcards with rm (besides carefully checking your typing!), test the wildcard first with `ls`
+- A **useful tip**: whenever you use wildcards with `rm` (besides carefully checking your typing!), test the wildcard first with `ls`
     - This will let you see the files that will be deleted
     - Then press the up arrow to recall the command and replace `ls` with `rm`
 - Examples
@@ -137,7 +141,7 @@
 - Hard links have two important limitations
     - A hard link cannot reference a file outside its own file system. This means a link cannot reference a file that is not on the same disk partition as the link itself
     - A hard link may not reference a directory
-- **A hard link is indistinguishable from the file itself**
+- **A hard link is *indistinguishable* from the file itself**
     - Unlike a symbolic link, when you list a directory containing a hard link, you will see no special indication of the link
 - When a hard link is deleted, the link is removed, but the contents of the file itself continue to exist (that is, its space is not deallocated) until all links to the file are deleted
 - It is important to be aware of hard links because you might encounter them from time to time, but modern practice prefers symbolic links
@@ -207,5 +211,5 @@
     ln -s dir1 dir1-sym
     ```
 
-- Most file operations are carried out on the link’s target, not the link itself
+- Most file operations are carried out on the link’s **target**, not the link itself
     - `rm` is an exception. When you delete a link, it is the link that is deleted, not the target

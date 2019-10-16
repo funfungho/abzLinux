@@ -1,9 +1,11 @@
+<!-- review 2019-10-15 10:59:16 -->
 - `ls ~ /usr -lt --reverse -hF`: specify multiple directories, output in the long format, sort the result by the file’s modification time, reverse the order of the sort, human readable, append an indicator character to the end of each listed name (a forward slash `/` if the name is a directory)
 - `ls -dl`: see details about the directory rather than its contents
     - > Ordinarily, `ls` will list the contents of the directory, not the directory itself
 - `file`: determines file type
 - `less`: view text file contents
 - `reset`: terminal initialization
+    - If we accidentally attempt to view a non-text file and it scrambles the terminal window, we can recover by entering the `reset` command
 # Exploring the system
 - Commands are often followed by one or more *options* that **modify their behavior** and, further, by one or more *arguments*, the items upon which the command **acts**
 - `command -options arguments`
@@ -11,7 +13,6 @@
         - Many commands allow multiple short options to be **strung** together
     - Many commands including those from the GNU Project, also support long options, consisting of a **word** preceded by two dashes (`--`)
 - Command options are case sensitive
-
 - `drwxr-xr-x   2 root root 4096 Apr 25 19:11 bin/`
 
     Field | Meaning |
@@ -38,8 +39,10 @@
     1G or g | Move to the beginning of the text file |
     `/` followed by searched characters | Search forward to the next occurrence of characters |
     n | Search for the next occurrence of the previous search |
-    **ESC+u** | toggle search highlight |
-    **h** | Display help screen |
+    N | Search for the previous occurrence of the previous search |
+    & followed by searched characters | Display **only** matching lines |
+    ESC+u | **toggle search highlight** |
+    **h** | Display help screen | 
     | |
 
     - If we accidentally attempt to view a non-text file and it scrambles the terminal window, we can recover by entering the `reset` command

@@ -209,7 +209,7 @@
         - This convention of using `-` to represent standard input/output is used by a number of other programs, too
     - The `--files-from` option (which may also be specified as `-T`) causes `tar` to read its list of pathnames from a file rather than the command line
     - The `.tgz` extension is the conventional extension given to gzip-compressed tar files. The extension `.tar.gz` is also used sometimes
-    - Modern versions of GNU `tar` support both `gzip` and `bzip2` compression directly with the use of the `z` and `j` options, respectively
+    - Modern versions of GNU `tar` support both `gzip` and `bzip2` compression directly with the use of the <mark>`z` and `j`</mark> options, respectively
     	
         ```bash
         find playground -name 'file-A' | tar czf playground.tgz -T -

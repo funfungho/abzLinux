@@ -1,3 +1,4 @@
+<!-- review 2019-10-15 10:20:12 -->
 - `cd`: changes the working directory to your home directory
 - `cd -`: changes the working directory to the previous working directory
 - `cd ~user_name`: changes the working directory to the home directory of `user_name`
@@ -15,7 +16,7 @@
 - Relative pathnames
     - A relative pathname starts from the working directory
     - The `.` notation refers to the working directory, and the `..` notation refers to the working directory’s parent directory
-    - In general, if we do not specify a pathname to something, the working directory will be assumed. We can omit the `./` part because it is implied
+    - In general, if we do not specify a pathname to something, the working directory will be assumed. We can omit the `./` part because it is **implied**
 - Filenames that begin with a period `.` character are **hidden** (`ls -a`)
 - Filenames and commands in Linux, like Unix, are case sensitive
 - Though Linux supports long filenames that may contain embedded spaces and punctuation characters, limit the punctuation characters in the names of files you create to **period, dash, and underscore**. Most important, do not embed spaces in filenames. If you want to represent spaces between words in a filename, use underscore characters
