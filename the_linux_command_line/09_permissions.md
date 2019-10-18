@@ -1,6 +1,7 @@
+<!-- review 2019-10-18 14:21:05 -->
 # Permissions
 - Operating systems in the Unix tradition differ from those in the MS-DOS tradition in that they are not only multitasking systems but also multiuser systems. It means that more than one person can be using the computer at the same time
-    - If a computer is attached to a network or the Internet, remote users can log in via `ssh` (**secure shell**) and operate the computer
+    - If a computer is attached to a network or the Internet, remote users can log in via `ssh` (*secure shell*) and operate the computer
     - In fact, remote users can execute graphical applications and have the graphical output appear on a remote display. The X Window System supports this as part of its basic design
 ## Owners, group members, and everybody else
 
@@ -16,6 +17,7 @@ less /etc/shadow
 	
     ```bash
     id
+    # uid=0(root) gid=0(root) groups=0(root),1001(docker)
     ```
 
     - When user accounts are created, users are assigned a number called a user ID (`uid`), which is then, for the sake of the humans, mapped to a username. The user is assigned a group ID (`gid`) and may belong to additional groups
@@ -23,8 +25,8 @@ less /etc/shadow
         - Ubuntu user belongs to a lot more groups. This has to do with the way Ubuntu manages privileges for system devices and services
 - User accounts are defined in the `/etc/passwd` file, and groups are defined in the `/etc/group` file
     - For each user account, the `/etc/passwd` file defines the user (login) name, uid, gid, account’s real name, home directory, and login shell
-    - If we examine the contents of `/etc/passwd` and `/etc/group`, we notice that besides the regular user accounts, there are accounts for the **superuser** (uid 0) and various other **system users**
-    - When user accounts and groups are created, these files are modified along with `etc/shadow`, which holds information about the user’s password
+    - If we examine the contents of `/etc/passwd` and `/etc/group`, we notice that besides the regular user accounts, there are accounts for the *superuser* (uid 0) and various other *system users*
+    - When user accounts and groups are created, these files are modified along with `/etc/shadow`, which holds information about the user’s password
 - While many Unix-like systems assign regular users to a common group such as `users`, modern Linux practice is to create a unique, single-member group with the same name as the user. This makes certain types of permission assignment easier
 ## Reading, writing, and executing
 - Access rights to files and directories are defined in terms of read access, write access, and execution access
@@ -43,17 +45,17 @@ less /etc/shadow
     --|--|
     `-` | A regular file.
     `d` | A directory.
-    `l` | A symbolic link. Notice that with symbolic links, the remaining file attributes are always `rwxrwxrwx` and are **dummy** values. The **real** file attributes are those of the file the symbolic link points to.
+    `l` | A symbolic link. Notice that with symbolic links, the remaining file attributes are always `rwxrwxrwx` and are *dummy values*. The **real** file attributes are those of the file the symbolic link points to.
     `c` | A character special file. This file type refers to a device that handles data as a stream of bytes, such as a terminal or `/dev/null`.
     `b` | A block special file. This file type refers to a device that handles data in blocks, such as a hard drive or DVD drive
     | |
 
-- The remaining nine characters of the file attributes, called the *file **mode***, represent the read, write, and execute **permissions** for the file’s owner, the file’s group owner, and everybody else
+- The remaining 9 characters of the file attributes, called the *file mode*, represent the read, write, and execute **permissions** for the file’s owner, the file’s group owner, and everybody else
 - Permissions attributes
 
     Attribute | Files | Directories |
     --|--|--|
-    `r` | Allows a file to be opened and read. | Allows a directory’s contents to be **listed if** the execute attribute is also set.
+    `r` | Allows a file to be opened and read. | Allows a directory’s contents to be listed if the execute attribute is also set.
     `w` | Allows a file to be written to or truncated; however, this attribute does not allow files to be renamed or deleted. The **ability to delete or rename files is determined by directory attributes**. | Allows files within a directory to be created, deleted, and renamed **if** the execute attribute is also set.
     `x` | Allows a file to be treated as a program and executed. Program files written in scripting languages must also be set as **readable** to be executed. | Allows a directory to be entered, e.g., `cd` directory.
     | | |
@@ -67,7 +69,7 @@ less /etc/shadow
     `-rw-r--r--` | A regular file that is readable and writable by the file’s owner. Members of the file’s owner group may read the file. The file is world-readable.
     `-rwxr-xr-x` | A regular file that is readable, writable, and executable by the file’s owner. The file may be read and executed by everybody else.
     `-rw-rw----` | A regular file that is readable and writable by the file’s owner and members of the file’s group owner only.
-    `lrwxrwxrwx` | A symbolic link. All symbolic links have **“dummy”** permissions. The real permissions are kept with the actual file pointed to by the symbolic link.
+    `lrwxrwxrwx` | A symbolic link. All symbolic links have **“dummy” permissions**. The real permissions are kept with the actual file pointed to by the symbolic link.
     `drwxrwx---` | A directory. The owner and the members of the owner group may enter the directory and create, rename, and remove files within the directory.
     `drwxr-x---` | A directory. The owner may enter the directory and create, rename, and delete files within the directory. Members of the owner group may enter the directory but cannot create, delete, or rename files.
     | |
@@ -103,12 +105,13 @@ less /etc/shadow
     `u` | Short for “user” but means the file or directory **owner**.
     `g` | **Group owner**.
     `o` | Short for **“others”** but means world.
-    `a` | Short for “all.” This is a combination of u, g, and o.
+    `a` | Short for “all.” This is a combination of `u`, `g`, and `o`.
     |
 
-- If no character is specified, **“all” will be assumed**. The operation may be a `+` indicating that a permission is to be **added**, a `-` indicating that a permission is to be **taken away**, or a `=` indicating that only the **specified** permissions are to be applied and that all others are to be removed
+    - If no character is specified, **“all” will be assumed**. 
+- The operation may be a `+` indicating that a permission is to be **added**, a `-` indicating that a permission is to be **taken away**, or a `=` indicating that only the **specified** permissions are to be applied and that all others are to be removed
 - Permissions are specified with the `r`, `w`, and `x` characters
-- Symbolic notation does offer the advantage of allowing you to set a single attribute without disturbing any of the others
+- Symbolic notation does offer the advantage of allowing you to set a single attribute **without disturbing** any of the others
 - `--recursive` option acts on both files and directories, so it’s not as useful as we would hope because we rarely want files and directories to have the same permissions
 - Symbolic notation examine
 
@@ -119,7 +122,7 @@ less /etc/shadow
     `+x` | Add execute permission for the owner, group, and world. This is equivalent to `a+x`.
     `o-rw` | Remove the read and write permissions from anyone besides the owner and group owner.
     `go=rw` | Set the group owner and anyone besides the owner to have read and write permissions. If either the group owner or the world previously had execute permission, it is removed.
-    `u+x,go=rx` | Add execute permission for the owner and set the permissions for the group and others to read and execute. Multiple specifications may be separated by commas.
+    `u+x,go=rx` | Add execute permission for the owner and set the permissions for the group and others to read and execute. Multiple specifications may be **separated by commas**.
     |
     
 - `chmod` in action
@@ -150,26 +153,26 @@ less /etc/shadow
     umask 0022 # cleanup
     ```
 
-Original file mode | --- rw- rw- rw- |
---|--|
-Mask | 000 000 010 010 |
-Result | --- rw- r-- r--
-|
+    Original file mode | &nbsp; --- rw- rw- rw- |
+    --|--|
+    Mask | 000 000 010 010 |
+    Result | --- rw- r-- r-- |
+    | |
 
-- Original file mode is `rw-rw-rw-`
-- Everywhere a 1 appears in the binary value of the mask, the corresponding attribute is unset
+    - Original file mode is `rw-rw-rw-`
+    - Everywhere a 1 appears in the binary value of the mask, the corresponding attribute is unset
 - Most of the time we won’t have to change the mask; the default provided by your distribution will be fine. In some high-security situations, however, we will want to control it
 ### Special permissions
 - Though we usually see an octal permission mask expressed as a three-digit number, it is more technically correct to express it in **four digits**. Because, in addition to read, write, and execute permissions, there are some other, less used, permissions settings
 - The first of these is the `setuid` bit (octal 4000)
-    - When applied to an executable file, it changes the *effective user ID* from that of the real user (the user actually running the program) to that of the program’s owner
+    - When applied to an executable file, it changes the *effective user ID* from that of the **real user** (the user actually running the program) to that of the **program’s owner**
     - When an ordinary user runs a program that is `setuid root`, the program runs with the effective **privileges of the superuser**. This allows the program to access files and directories that an ordinary user would normally be prohibited from accessing
     - Most often this is given to a few programs owned by the superuser
     - Clearly, because this raises security concerns, the number of `setuid` programs must be held to an absolute minimum
         - In the UNIX System, privileges, such as being able to change the system's notion of the current date, and access control, such as being able to read or write a particular file, are based on user and group IDs. When our programs need additional privileges or need to gain access to resources that they currently aren't allowed to access, they need to change their user or group ID to an ID that has the appropriate privilege or access. Similarly, when our programs need to lower their privileges or prevent access to certain resources, they do so by changing either their user ID or group ID to an ID without the privilege or ability access to the resource
         - > http://poincare.matf.bg.ac.rs/~ivana/courses/ps/sistemi_knjige/pomocno/apue/APUE/0201433079/ch08lev1sec11.html
 - The second less-used setting is the `setgid` bit (octal 2000), which, like the `setuid` bit, changes the effective group ID from the real group ID of the real user to that of the file owner
-    - If the `setgid` bit is set on a directory, **newly created files** in the directory will be given the group ownership of the directory rather the group ownership of the file’s creator
+    - If the `setgid` bit is set on a directory, **newly created files** in the directory will be given the group ownership of the **directory** (目录所属的用户组) rather the group ownership of the file’s creator
     - This is useful in a shared directory when members of a common group need access to all the files in the directory, regardless of the file owner’s primary group
 - The third is called the `sticky` bit (octal 1000)
     - This is a holdover from ancient Unix, where it was possible to mark an executable file as “not swappable”
@@ -180,15 +183,16 @@ Result | --- rw- r-- r--
     ```bash
     # assigning setuid to a program
     chmod u+s program
-    # assigning setgid to a directory
-    chmod g+s dir
-    # assigning the sticky bit to a directory
-    chmod +t dir
-
     # a program that is setuid
     -rwsr-xr-x
+
+    # assigning setgid to a directory
+    chmod g+s dir
     # a directory that has the setgid attribute
     drwxrwsr-x
+
+    # assigning the sticky bit to a directory
+    chmod +t dir
     # a directory with the sticky bit set
     drwxrwxrwt
     ```
@@ -197,15 +201,16 @@ Result | --- rw- r-- r--
 - 3 ways to take on an alternate identity
     1. Log out and log back in as the alternate user
     2. Use the `su` command
+       - The `su` command allows you to assume the identity of another user and either **start a new shell session** with that user’s ID or **issue a single command** as that user
     3. Use the `sudo` command
-- The `su` command allows you to assume the identity of another user and either **start a new shell session** with that user’s ID or **issue a single command** as that user
-- The `sudo` command allows an administrator to set up a configuration file called `/etc/sudoers` and define specific commands that particular users are permitted to execute under an assumed identity
+       - The `sudo` command allows an administrator to set up a configuration file called `/etc/sudoers` and define specific commands that particular users are permitted to execute under an assumed identity
 - The choice of which command to use is largely determined by which Linux distribution you use. Your distribution probably includes both commands, but its configuration will favor either one or the other
-### `su`: run a shell with substitute user and group IDs
+### `su`: ***run a shell*** with substitute user and group IDs
 - Command syntax
 	
     ```bash
     su [-[l]] [user]
+
     su -c 'command' # execute a single command
 
     # start a shell for the superuser
@@ -219,19 +224,18 @@ Result | --- rw- r-- r--
     su -c 'ls -l /root/*'
     ```
 
-    - If the `-l` option is included, the resulting shell session is a login shell for the specified user. This means the user’s environment is loaded and the working directory is changed to the user’s home directory
-        - Notice that (strangely) the `-l` may be abbreviated as `-`, which is how it is most often used
-    - If the user is not specified, the superuser is assumed 
+    - If the `-l` option is included, the resulting shell session is a **login shell** for the specified user. This means the user’s environment is loaded and the working directory is changed to the user’s home directory
+        - Notice that (strangely) the `-l` may be **abbreviated as `-`**, which is how it is most often used. If the user is not specified, the superuser is assumed 
 ### `sudo`: execute a command as another user
 - The `sudo` command is like `su` in many ways but has some important additional capabilities
 - The administrator can configure `sudo` to allow an ordinary user to execute commands as a different user (usually the superuser) in a **controlled** way
     - In particular, a user may be restricted to one or more specific commands and no others (no others allowed)
-- Another important difference is that the use of `sudo` does not require access to the superuser’s password. Authenticating using `sudo` requires the user’s **own password**
+- Another important difference is that the use of `sudo` does not require access to the superuser’s password. Authenticating using `sudo` requires the **user’s own password**
 - One important difference between `su` and `sudo` is that `sudo` does not start a new shell, nor does it load another user’s environment
-    - This means that **commands do not need to be quoted** any differently than they would be without using `sudo`
+    - This means that ***commands do not need to be quoted*** any differently than they would be without using `sudo`
         - Note that this behavior can be overridden by specifying various options
     - Note, too, that `sudo` can be used to start an interactive superuser session (much like `su -`) by specifying the `-i` option
-    - > `sudo`, in most configurations, “trusts” you for several minutes until its timer runs out
+    - > `sudo`, in most configurations, “trusts” you for several minutes until its **timer** runs out
 - Use `-l` option to list what privileges are granted by `sudo`
 	
     ```bash
@@ -295,9 +299,9 @@ Result | --- rw- r-- r--
     usermod -aG music bill
     groups bill
 
-    adduser kim
-    usermod -aG music kim
-    groups kim
+    adduser karen
+    usermod -aG music karen
+    groups karen
 
     su - bill
     sudo ls -la /root # verify bill is in sudo group
@@ -312,7 +316,8 @@ Result | --- rw- r-- r--
     # Because bill is manipulating files **outside** his home directory, superuser privileges are required
     sudo mkdir /usr/local/share/Music
     ls -ld /usr/local/share/Music
-    # drwxr-xr-x 2 root root 4096 Jul 15 01:13 /usr/local/share/Music       # 755
+    # drwxr-xr-x 2 root root 4096 Jul 15 01:13 /usr/local/share/Music
+    # 755
 
     # Music group owner 由 root 变为 music
     sudo chown :music /usr/local/share/Music
@@ -334,7 +339,7 @@ Result | --- rw- r-- r--
     	
         ```bash
         ## bill
-        # newly created files in the directory will be given the group ownership of the directory rather the group ownership of the file’s creator
+        # newly created files in the directory will be given the group ownership of the directory (music here) rather the group ownership of the file’s creator
         sudo chmod g+s /usr/local/share/Music
         ls -ld /usr/local/share/Music
         # drwxrwsr-x 2 root music 4096 Jul 15 01:17 /usr/local/share/Music
@@ -374,7 +379,7 @@ Result | --- rw- r-- r--
     Original file mode | --- rw- rw- rw-
     --|--| 
     Mask | 000 000 000 010
-    Result | --- rw- rw- r--
+    Result | &nbsp;&nbsp;&nbsp;&nbsp;--- rw- rw- r--
     |
 
 - The one remaining issue is `umask`. The necessary setting lasts only until the end of session and must be reset

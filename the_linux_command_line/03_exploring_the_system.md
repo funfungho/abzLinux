@@ -31,7 +31,7 @@
 
     Command | Action |
     --|--|
-    b | Scroll back one page |
+    b | Scroll **back** one page |
     space | Scroll forward one page |
     Up arrow | Scroll up one line |
     Down arrow | Scroll down one line |
