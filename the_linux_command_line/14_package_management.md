@@ -1,8 +1,9 @@
+<!-- review 2019-10-22 09:42:42 -->
 - The most important determinant of distribution quality is the packaging system and the vitality of the distribution’s support community.
 - Package management is a method of installing and maintaining software on the system.
 # Package systems
 - Different distributions use different packaging systems, and as a general rule, a package intended for one distribution is not compatible with another distribution.
-- Most distributions fall into one of two camps of packaging technologies: the Debian `.deb` camp and the Red Hat `.rpm` camp.
+- Most distributions fall into one of 2 camps of packaging technologies: the Debian `.deb` camp and the Red Hat `.rpm` camp.
 
     Package system | Distributions (partial listing) |
     --|--|
@@ -18,18 +19,21 @@
 - A package file is a compressed collection of files that comprise the software package. A package may consist of numerous programs and data files that support the programs. 
     - In addition to the files to be installed, the package file also includes metadata about the package, such as a text description of the package and its contents. 
     - Additionally, many packages contain pre- and post-installation scripts that perform configuration tasks before and after the package installation.
-- Package files are created by a person known as a package maintainer, often (but not always) an employee of the distribution vendor. The package maintainer gets the software in source code form from the upstream provider (the author of the program), compiles it, and creates the package metadata and any necessary installation scripts. Often, the package maintainer will apply modifications to the original source code to improve the program’s integration with the other parts of the Linux distribution.
+- Package files are created by a person known as a *package maintainer*, often (but not always) an employee of the distribution vendor. The package maintainer gets the software in source code form from the upstream provider (the author of the program), compiles it, and creates the package metadata and any necessary installation scripts. 
+    - Often, the package maintainer will apply modifications to the original source code to improve the program’s integration with the other parts of the Linux distribution.
 ## Repositories
-- While some software projects choose to perform their own packaging and distribution, most packages today are created by the distribution vendors and interested third parties. Packages are made available to the users of a distribution in central repositories that may contain many thousands of packages, each specially built and maintained for the distribution.
-- A distribution may maintain several different repositories for different stages of the software development life cycle. 
+- While some software projects choose to perform their own packaging and distribution, most packages today are created by the distribution vendors and interested third parties. Packages are made available to the users of a distribution in **central repositories** that may contain many thousands of packages, each specially built and maintained for the distribution.
+- A distribution may maintain several different repositories for **different stages** of the software development life cycle. 
     - For example, there will usually be a “testing” repository that contains packages that have just been built and are intended for use by brave souls who are looking for bugs before the packages are released for general distribution. 
     - A distribution will often have a “development” repository where work-in-progress packages destined for inclusion in the distribution’s next major release are kept.
     - A distribution may also have related third-party repositories. These are often needed to supply software that, for legal reasons such as patents or DRM anti-circumvention issues, cannot be included with the distribution. 
         - Perhaps the best known case is that of encrypted DVD support, which is not legal in the United States. 
         - The third-party repositories operate in countries where software patents and anti-circumvention laws do not apply. These repositories are usually wholly independent of the distribution they support, and to use them, one must know about them and manually include them in the configuration files for the package management system.
 ## Dependencies
-- Programs are seldom “stand alone”; rather, they rely on the presence of other software components to get their work done. Common activities, such as input/output, for example, are handled by routines shared by many programs. These routines are stored in *shared libraries*, which provide essential services to more than one program. 
-- If a package requires a shared resource such as a shared library, it is said to have a *dependency*. Modern package management systems all provide some method of dependency resolution to ensure that when a package is installed, all of its dependencies are installed, too.
+- Programs are seldom “stand alone”; rather, they rely on the presence of other software components to get their work done. 
+- Common activities, such as input/output, for example, are handled by routines shared by many programs. These routines are stored in *shared libraries*, which provide essential services to more than one program. 
+- If a package requires a shared resource such as a shared library, it is said to have a *dependency*. 
+- Modern package management systems all provide some method of dependency resolution to ensure that when a package is installed, all of its dependencies are installed, too.
 ## High- and low-level package tools
 - Package management systems usually consist of two types of tools.
     - Low-level tools that handle tasks such as installing and removing package files
@@ -73,8 +77,7 @@
     Red Hat | `rpm -i package_file`
     |
 
-    - `rpm -i emacs-22.1-7.fc7-i386.rpm`
-        - Because this technique uses the low-level `rpm` program to perform the installation, no dependency resolution is performed. If `rpm` discovers a missing dependency, `rpm` will exit with an error.
+    - `rpm -i emacs-22.1-7.fc7-i386.rpm`: because this technique uses the low-level `rpm` program to perform the installation, no dependency resolution is performed. If `rpm` discovers a missing dependency, `rpm` will exit with an error.
 ## Removing a package
 - Packages can be uninstalled using either the high-level or low-level tools.
 - High-level package removal commands
@@ -95,6 +98,17 @@
     |
 
 - > https://www.cyberciti.biz/faq/ubuntu-upgrade-update-single-package-using-apt-get/
+
+    ```bash
+    sudo apt-get update
+
+    # If nginx package is already installed it will try to update to latest version.
+    apt-get install nginx
+
+    # Will not install a new nginx package if not installed already.
+    apt-get --only-upgrade install nginx
+    ```
+
 ## Upgrading a package from a package file
 - If an updated version of a package has been downloaded from a non-repository source, it can be installed, replacing the previous version.
 - Low-level package upgrade commands
@@ -125,7 +139,7 @@
     |
 
 ## Displaying information about an installed package
-- Package information commands
+- Package information commands (if the name of an installed package is known)
 
     Style | Command(s) |
     --|--|
@@ -143,7 +157,9 @@
     |
 
     - > `rpm -qf /usr/bin/vim`
-- Device drivers are handled in much the same way, except that instead of being separate items in a distribution’s repository, they become part of the Linux kernel. Generally speaking, there is no such thing as a “driver disk” in Linux. Either the kernel supports a device or it doesn’t, and the Linux kernel supports a lot of devices—many more, in fact, than Windows does.
+---
+- Device drivers are handled in much the same way, except that instead of being separate items in a distribution’s repository, they become part of the Linux **kernel**. 
+- Generally speaking, there is no such thing as a “driver disk” in Linux. Either the kernel supports a device or it doesn’t, and the Linux kernel supports a lot of devices—many more, in fact, than Windows does.
 - A lack of driver support is usually caused by one of 3 things.
     - The device is too new. 
         - Since many hardware vendors don’t actively support Linux development, it falls upon a member of the Linux community to write the kernel driver code. This takes time.

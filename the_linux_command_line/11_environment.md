@@ -1,10 +1,13 @@
+<!-- review 2019-10-21 10:26:10 -->
+- As a general rule, to add directories to your **`PATH`** or define additional **environment variables**, place those changes in `.bash_profile` (or the equivalent, according to your distribution; for example, Ubuntu uses `.profile`). For everything else, place the changes in `.bashrc`
 # The environment
 - The shell maintains a body of information during our shell session called the *environment*. Programs use the data stored in the environment to determine facts about the system’s **configuration**
 - While most programs use *configuration files* to store program settings, some programs also look for values stored in the environment to **adjust** their behavior
 ## What is stored in the environment
 - The shell stores **2 basic types** of data in the environment; though, with `bash`, the types are largely **indistinguishable**. They are *environment variables* and *shell variables*
-- Shell variables are bits of data placed there by `bash`, and environment variables are everything else
-- In addition to variables, the shell stores some programmatic data, namely, *aliases* and *shell functions*
+    - Shell variables are bits of data placed there by `bash`
+        - In addition to variables, the shell stores some programmatic data, namely, *aliases* and *shell functions*
+    - Environment variables are everything else
 ### Examining the environment
 - Use either the `set` builtin in bash or the `printenv` program
 - The `set` command will show **both** the shell and environment variables, while `printenv` will display only **environment variables**
@@ -19,7 +22,7 @@
     ```
 
     - The `set` command, when used without options or arguments, will display **both the shell and environment variables**, as well as any **defined shell functions**. Unlike `printenv`, its output is courteously sorted in **alphabetical order**
-- One element of the environment that neither `set` nor `printenv` displays is aliases. To see them, enter the `alias` command without arguments
+- One element of the environment that neither `set` nor `printenv` displays is **aliases**. To see them, enter the `alias` command without arguments
 ### Some variables
 - Environment variables vary by distribution
 
@@ -103,23 +106,24 @@ USER | Your username.
     PATH=$PATH:$HOME/bin
     ```
 
-    - Many distributions provide this `PATH` setting by default. Debian-based distributions, such as Ubuntu, test for the existence of the `~/bin` directory at login and **dynamically** add it to the `PATH` variable if the directory is found
+    - Many distributions provide this `PATH` setting by default. 
+    - Debian-based distributions, such as Ubuntu, test for the existence of the `~/bin` directory at login and **dynamically** add it to the `PATH` variable if the directory is found
 ## Modifying the environment
 ### Which files should we modify
 - As a general rule, to add directories to your **`PATH`** or define additional **environment variables**, place those changes in `.bash_profile` (or the equivalent, according to your distribution; for example, Ubuntu uses `.profile`). For everything else, place the changes in `.bashrc`
     - Unless you are the system administrator and need to change the defaults for all users of the system, **restrict** your modifications to the files in your home directory. It is certainly possible to change the files in `/etc` such as `profile`, and in many cases it would be sensible to do so, but for now, let’s play it safe
 ### Text editors
 - Text editors fall into 2 basic categories: graphical and **text-based**
-- GNOME and KDE both include some popular graphical editors
-    - GNOME ships with an editor called `gedit`, which is usually called “Text Editor” in the GNOME menu
-    - KDE usually ships with 3, which are (in order of increasing complexity) `kedit`, `kwrite`, and `kate`
-- The popular text-based editors we’ll encounter are `nano`, `vi`, and `emacs`
-    - The `nano` editor is a simple, easy-to-use editor designed as a replacement for the `pico` editor supplied with the PINE email suite
-    - The `vi` editor (which on most Linux systems has been replaced by a program named `vim`, which is short for “vi improved”) is the traditional editor for Unix-like systems
-    - The `emacs` editor was originally written by Richard Stallman. It is a gigantic, all-purpose, does-everything programming environment. While readily available, it is seldom installed on most Linux systems by default
+    - GNOME and KDE both include some popular graphical editors
+        - GNOME ships with an editor called `gedit`, which is usually called “Text Editor” in the GNOME menu
+        - KDE usually ships with 3, which are (in order of increasing complexity) `kedit`, `kwrite`, and `kate`
+    - The popular text-based editors we’ll encounter are `nano`, `vi`, and `emacs`
+        - The `nano` editor is a simple, easy-to-use editor designed as a replacement for the `pico` editor supplied with the PINE email suite
+        - The `vi` editor (which on most Linux systems has been replaced by a program named `vim`, which is short for “vi improved”) is the traditional editor for Unix-like systems
+        - The `emacs` editor was originally written by Richard Stallman. It is a gigantic, all-purpose, does-everything programming environment. While readily available, it is seldom installed on most Linux systems by default
 ### Using a text editor
 - Text editors can be invoked from the command line by typing the name of the editor followed by the name of the file you want to edit. If the file does not already exist, the editor will **assume** that we want to **create** a new file
-- Whenever we edit an important configuration file, it is always a good idea to create a backup copy of the file first
+- Whenever we edit an important configuration file, it is always a good idea to create a **backup copy** of the file first
 	
     ```bash
     cp .bashrc .bashrc.bak
@@ -131,8 +135,8 @@ USER | Your username.
     - `export HISTCONTROL=ignoredups` causes the shell’s history recording feature to ignore a command if the same command was just recorded
     - `export HISTSIZE=1000` increases the size of the command history from the usual default of 500 lines to 1,000 lines
     - `alias l.='ls -d .* --color=auto'` creates a new command called `l.`, which displays all directory entries that begin with a dot
-- Whenever you modify configuration files, it’s a good idea to add some comments to document your changes
-- Shell scripts and bash startup files use a `#` symbol to begin a comment. Other configuration files may use other symbols. Most configuration files will have comments
+- Whenever you modify configuration files, it’s a good idea to add some **comments** to document your changes
+    - Shell scripts and bash startup files use a `#` symbol to begin a comment. Other configuration files may use other symbols. Most configuration files will have comments
     - You will often see lines in configuration files that are commented out to prevent them from being used by the affected program. This is done to give the reader **suggestions** for possible configuration choices or **examples of correct configuration syntax**
 ### Activating changes
 - The changes we have made to our `.bashrc` will not take effect until we close our terminal session and start a new one because the `.bashrc` file is **read only at the beginning of a session**

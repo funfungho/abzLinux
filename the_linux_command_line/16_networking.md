@@ -1,8 +1,9 @@
+<!-- review 2019-10-22 10:19:52 -->
 # Network
 - network-attached storage (NAS) boxes
 ## Examining and monitoring a network
 ### `ping`
-- The `ping` command sends a special **network packet** called an `ICMP ECHO_REQUEST` to a specified host. Most network devices receiving this packet will **reply** to it, allowing the network connection to be **verified**
+- The `ping` command sends a special network packet called an `ICMP ECHO_REQUEST` to a specified host. Most network devices receiving this packet will **reply** to it, allowing the network connection to be **verified**
     - It is possible to configure most network devices (including Linux hosts) to ignore these packets
         - This is usually done for security reasons to partially obscure a host from a potential attacker
         - It is also common for firewalls to be configured to block ICMP traffic
@@ -15,6 +16,7 @@
 	
     ```bash
     traceroute slashdot.org
+
     traceroute -T slashdot.org
     traceroute -I slashdot.org
     ```
@@ -65,7 +67,7 @@
     #     valid_lft forever preferred_lft forever
     ```
 
-    - The first network interface `lo` is he *loopback interface*, a virtual interface that the system uses to “talk to itself”
+    - The first network interface `lo` is the *loopback interface*, a virtual interface that the system uses to “talk to itself”
     - The second, called `eth0`, is the Ethernet interface
 - When performing casual network diagnostics, the important things to look for are the presence of the word **UP** in the **first line** for each interface, indicating that the network interface is **enabled**, and the presence of a valid IP address in the `inet` field on the **third line**
     - For systems using Dynamic Host Configuration Protocol (DHCP), a valid IP address in this field will verify that the DHCP is working
@@ -87,7 +89,9 @@
 
     - Using the `-ie` option, we can examine the **network interfaces**
     - Using the `-r` option will display the kernel’s network routing table. This shows how the network is configured to send packets from network to network
-        - The first line of the listing shows the destination `192.168.1.0`. IP addresses that end in zero refer to networks rather than individual hosts, so this destination means any host on the LAN. The next field, `Gateway`, is the name or IP address of the gateway (router) used to go from the current host to the destination network. An asterisk in this field indicates that no gateway is needed
+        - The first line of the listing shows the destination `192.168.1.0`. 
+            - IP addresses that end in zero refer to networks rather than individual hosts, so this destination means any host on the LAN. 
+            - The next field, `Gateway`, is the name or IP address of the gateway (router) used to go from the current host to the destination network. An asterisk in this field indicates that no gateway is needed
         - The last line contains the destination `default`. This means any traffic destined for a network that is not otherwise listed in the table. In our example, we see that the gateway is defined as a router with the address of `192.168.1.1`, which presumably knows what to do with the destination traffic
 ## Transporting files over a network
 ### `ftp`
@@ -126,19 +130,23 @@
 - `lftp` works much like the traditional `ftp` program but has many additional convenience features including multiple-protocol support (including HTTP), automatic retry on failed downloads, background processes, tab completion of path names, and many more
 ### `wget`
 - `wget` is useful for downloading content from both web and FTP sites. Single files, multiple files, and even entire sites can be downloaded
-- Its any options allow `wget` to recursively download, download files in the background (allowing you to log off but continue downloading), and complete the download of a partially downloaded file
+- Its many options allow `wget` to recursively download, download files in the background (allowing you to log off but continue downloading), and complete the download of a partially downloaded file
 ## Secure communication with remote hosts
 - `rlogin` and `telnet` kind of programs suffer from the same fatal flaw that the `ftp` program does; they transmit all their communications (including login names and passwords) in cleartext
 ### `ssh`
-- SSH (Secure Shell) solves the two basic problems of secure communication with a remote host
+- SSH (Secure Shell) solves the 2 basic problems of secure communication with a remote host
     - It authenticates that the remote host is who it says it is (thus preventing so-called man-in-the-middle attacks)
     - It encrypts all of the communications between the local and remote hosts
-- SSH consists of two parts. An SSH server runs on the remote host, listening for incoming connections, by default, on port 22, while an SSH client is used on the local system to communicate with the remote server
+- SSH consists of two parts:
+    - an SSH server runs on the remote host, listening for incoming connections, by default, on port 22
+    - an SSH client is used on the local system to communicate with the remote server
 - Most Linux distributions ship an implementation of SSH called `OpenSSH` from the OpenBSD project. Some distributions include both the client and the server packages by default (for example, Red Hat), while others (such as Ubuntu) supply only the client
 - To enable a system to receive remote connections, it must have the `OpenSSH-server` package installed, configured, and running, and (if the system either is running or is behind a firewall) it must allow incoming network connections on TCP port 22
     - If you don’t have a remote system to connect to but want to try these examples, make sure the `OpenSSH-server` package is installed on your system and use `localhost` as the name of the remote host. That way, your machine will create network connections with itself
 - SSH client
-	
+    - The first time the connection is attempted, a message is displayed indicating that the authenticity of the remote host cannot be established. This is because the client program has never seen this remote host before. To accept the credentials of the remote host, enter `yes` when prompted. Once the connection is established, the user is prompted for a password
+    - It is also possible to connect to remote systems **using a different username**
+
     ```bash
     ssh remote-sys
 
@@ -160,8 +168,6 @@
     # Host key verification failed.
     ```
 
-    - The first time the connection is attempted, a message is displayed indicating that the authenticity of the remote host cannot be established. This is because the client program has never seen this remote host before. To accept the credentials of the remote host, enter `yes` when prompted. Once the connection is established, the user is prompted for a password
-    - It is also possible to connect to remote systems **using a different username**
     - This message is caused by one of 2 possible situations. First, an attacker may be attempting a man-in-the-middle attack. This is rare because everybody knows that `ssh` alerts the user to this. The more likely culprit is that the remote system has been changed somehow; for example, its operating system or SSH server has been reinstalled
         - In the interests of security and safety, however, the first possibility should not be dismissed out of hand. Always check with the administrator of the remote system when this message occurs
         - After it has been determined that the message is because of a benign cause, it is safe to correct the problem on the client side. This is done by using a text editor (vim perhaps) to remove the obsolete key from the `~/.ssh/known_hosts` file. The first line contains the offending key in the preceding example message. Delete this line from the file, and the `ssh` program will be able to accept new authentication credentials from the remote system
@@ -170,7 +176,7 @@
     ```bash
     ssh remote-sys free
 
-    # Perform an `ls` on the remote system and redirect the output to a file on the local system
+    # Perform an ls on the remote system and redirect the output to a file on the local system
     # Single quotes are used because we do not want the pathname expansion performed on the local machine;
     # rather, we want it to be performed on the remote system
     ssh remote-sys 'ls *' > dirlist.txt
@@ -184,8 +190,8 @@
     - The most common use of this feature is to allow X Window system traffic to be transmitted. **On a system running an X server** (that is, a machine displaying a GUI), it is possible to launch and run an X client program (a graphical application) on a remote system and have its display appear on the local system
     	
         ```bash
-        # a Linux system called `linuxbox` is running an X server; we want to run the `xload` program
-        # on a remote system named `remote-sys` to see the program’s graphical output on our local system
+        # a Linux system called linuxbox (local) is running an X server
+        # we want to run the xload program on a remote system named remote-sys to see the program’s graphical output on our local system
         [me@linuxbox ~]$ ssh -X remote-sys
         # me@remote-sys's password:
         # Last login: Mon Sep 10 13:23:11 2018
@@ -200,8 +206,8 @@
     	
         ```bash
         scp remote-sys:document.txt .
-        # apply a username to the beginning of the remote host’s name
-        # if the desired remote host account name does not match that of the local system
+
+        # apply a username to the beginning of the remote host’s name if the desired remote host account name does not match that of the local system
         scp bob@remote-sys:document.txt .
         ```
     
