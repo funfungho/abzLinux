@@ -1,5 +1,10 @@
+<!-- review 2019-10-24 11:40:20 -->
+- The beauty of `find` is that it can be used to identify files that **meet specific criteria**, through the (slightly strange) application of *options*, *tests*, and *actions*
+- `find` and `xargs` allow the optional use of a `null` character as an argument separator
+- Combine all of the search results and launch a single instance of the command for efficiency.
+---
 # `locate` (find files the easy way)
-- The locate program performs a rapid database search of **pathnames** and then outputs every name that matches a given **substring**
+- The `locate` program performs a rapid database search of **pathnames** and then outputs every name that matches a given **substring**
 	
     ```bash
     locate bin/zip
@@ -11,7 +16,8 @@
     - Some versions include regular expression matching and wildcard support
     - Check the man page for `locate` to determine which version of locate is installed
         - `locate --version`
-- On some distributions, `locate` fails to work just after the system is installed, but if you try again the next day, it works fine. The `locate` database is created by another program named `updatedb`. Usually, it is run periodically as a cron job, that is, a task performed at regular intervals by the cron daemon
+- On some distributions, `locate` fails to work just after the system is installed, but if you try again the next day, it works fine. 
+- The `locate` database is created by another program named `updatedb`. Usually, it is run periodically as a cron job, that is, a task performed at regular intervals by the cron daemon
     - Most systems equipped with `locate` run `updatedb` once a day. Because the database is not updated continuously, you will notice that very recent files do not show up when using `locate`. To overcome this, it’s possible to run the `updatedb` program manually by becoming the superuser and running `updatedb` at the prompt
 # `find`
 - While the `locate` program can find a file based solely on its name, the `find` program searches a given directory (and its subdirectories) for files based on a variety of attributes
@@ -24,7 +30,7 @@
     find ~ | wc -l
     ```
 
-- The beauty of `find` is that it can be used to identify files that meet specific criteria, through the (slightly strange) application of *options*, *tests*, and *actions*
+- The beauty of `find` is that it can be used to identify files that **meet specific criteria**, through the (slightly strange) application of *options*, *tests*, and *actions*
 ## Tests
 - Adding the test `-type d` limited the search to directories
 	
@@ -53,7 +59,7 @@
 
     - `*.JPG` is enclosed in quotes to prevent pathname expansion (in order to be passed as arguments)
     - The leading plus sign indicates that we are looking for files larger than the specified number. A leading minus sign would change the meaning of the string to be smaller than the specified number. Using **no sign** means “match the value exactly”
-    - `find` size units
+- `find` size units
 
     Character | Unit
     --|--|
@@ -65,20 +71,20 @@
     `G` | Gigabytes (units of 1,073,741,824 bytes).
     | |    
 
-- Common tests
-    - In cases where a numeric argument is required, the same **+** and **-** notation can be applied
+### Common tests
+- In cases where a numeric argument is required, the same **+** and **-** notation can be applied
     
     Test | Description |
     --|--|
-    `-cmin n` | Match files or directories whose content or attributes were last modified exactly `n` minutes ago. To specify less than `n` minutes ago, use `-n`, and to specify more than n minutes ago, use `+n`.
+    `-cmin n` | Match files or directories whose contents or attributes were last modified exactly `n` minutes ago. To specify less than `n` minutes ago, use `-n`, and to specify more than n minutes ago, use `+n`.
     `-cnewer file` | Match files or directories whose contents or attributes were last modified more recently than those of file.
-    `-ctime n` | Match files or directories whose contents or attributes were last modified `n`*24 hours ago.
+    `-ctime n` | Match files or directories whose contents or attributes were last modified `n*24` hours ago.
     `-empty` | Match empty files and directories.
     `-group name` | Match file or directories belonging to belonging to group `name`. `name` may be expressed may be expressed either as a group name or as a numeric group ID.
-    `-iname` | pattern Like the `-name` test but **case-insensitive**.
+    `-iname` | pattern like the `-name` test but **case-insensitive**.
     `-inum n` | Match files with inode number `n`. This is helpful for finding all the hard links to a particular inode.
     `-mmin n` | Match files or directories whose contents were last modified `n` minutes ago.
-    `-mtime n` | Match files or directories whose contents were last modified `n`*24 hours ago.
+    `-mtime n` | Match files or directories whose contents were last modified `n*24` hours ago.
     `-name pattern` | Match files and directories with the specified wildcard pattern.
     `-newer file` | Match files and directories whose contents were modified more recently than the specified `file`. This is useful when writing shell scripts that perform file backups. Each time you make a backup, update a file (such as a log) and then use `find` to determine which files have changed since the last update.
     `-nouser` | Match file and directories that do not belong to a valid user. This can be used to find files belonging to deleted accounts or to detect activity by attackers.
@@ -92,7 +98,7 @@
 
 ## Operators
 - Even with all the tests that `find` provides, we might still need a better way to describe the logical relationships between the tests
-- `find` provides a way to combine tests using *logical operators* to create more complex logical relationships
+- `find` provides a way to **combine tests** using *logical operators* to create more complex logical relationships
 - Determine whether all the files and subdirectories in a directory had secure permissions (look for all the files with permissions that are not 0600 and the directories with permissions that are not 0700)
 	
     ```bash
@@ -105,10 +111,10 @@
 
     Operator | Description |
     --|--
-    `-and` | Match if the tests on both sides of the operator are true. This can be shortened to `-a`. Note that when no operator is present, `-and` is implied by **default**.
+    `-and` | Match if the tests on both sides of the operator are true. This can be shortened to `-a`. Note that when no operator is present, `-and` is ***implied by default***.
     `-or` | Match if a test on either side of the operator is true. This can be shortened to `-o`.
-    `-not` | Match if the test following the operator is false. This can be abbreviated with an exclamation point (!).
-    `( )` | Group tests and operators together to form larger expressions. This is used to control the precedence of the logical evaluations. By default, `find` evaluates from left to right. It is often necessary to override the default evaluation order to obtain the desired result. Even if not needed, it is helpful sometimes to include the grouping characters to improve the readability of the command. Note that since the parentheses have special meaning to the shell, they must be quoted when using them on the command line to allow them to be passed as arguments to `find`. Usually the backslash character is used to escape them.
+    `-not` | Match if the test following the operator is false. This can be abbreviated with an exclamation point (`!`).
+    `( )` | Group tests and operators together to form larger expressions. This is used to control the precedence of the logical evaluations. By default, `find` evaluates from **left to right**. It is often necessary to override the default evaluation order to obtain the desired result. Even if not needed, it is helpful sometimes to include the grouping characters to improve the readability of the command. Note that since the parentheses have **special meaning** to the shell, they must be quoted when using them on the command line to allow them to be passed as arguments to `find`. Usually the backslash character is used to **escape** them.
     | |
 
 - 2 expressions separated by a logical operator
@@ -153,7 +159,7 @@
             find ~ -print -and -type f -and -name '*.log'
             ```
         
-            - This command will print each file (the `-print` action always evaluates to true) and then test for file type and the specified file extension ([ ] won't print the search result separately)
+            - This command will print each file (the `-print` action always evaluates to true) and then test for file type and the specified file extension (won't print the search result **separately**)
     - Always test the command first by substituting the `-print` action for `-delete` to confirm the search results
 ## User-defined actions
 - Invoke arbitrary commands with the `-exec` action
@@ -164,9 +170,9 @@
     -exec rm '{}' ';'
     ```
 
-    - `command` is the name of a command, `{}` is a symbolic representation of the **current pathname**, and the semicolon is a required delimiter indicating the end of the command
+    - `command` is the name of a command, `{}` is a ***symbolic representation* (variable) of the current pathname**, and the semicolon is a required delimiter indicating the end of the command
     - Because the brace and semicolon characters have special meaning to the shell, they must be **quoted or escaped**
-    - > [x] `{}` not quoted or escaped in this [example](https://stackoverflow.com/questions/22388480/how-to-pipe-the-results-of-find-to-mv-in-linux)
+    - > [ ] `{}` not quoted or escaped in this [example](https://stackoverflow.com/questions/22388480/how-to-pipe-the-results-of-find-to-mv-in-linux)
 - Execute a user-defined action interactively by using the `-ok` action in place of `-exec` (the user is prompted before execution of each specified command)
 	
     ```bash
@@ -189,7 +195,7 @@
 - 2 ways
     1. Traditional way: using the external command `xargs`
     2. Using a new feature in `find` itself
-        - By changing the trailing semicolon character to a plus sign, we activate the capability of `find` to combine the results of the search into an argument list for a single execution of the desired command
+        - By changing the trailing semicolon character to a **plus sign**, we activate the capability of `find` to combine the results of the search into an argument list for a single execution of the desired command
         	
             ```bash
             find ~ -type f -name 'foo*' -exec ls -l '{}' +
@@ -207,7 +213,7 @@
 - While the number of arguments that can be placed into a command line is quite large, it’s not unlimited. It is possible to create commands that are too long for the shell to accept
 - When a command line exceeds the maximum length supported by the system, `xargs` executes the specified command with the maximum number of arguments possible and then repeats this process until standard input is exhausted (反复截断输入直至读完)
     - To see the maximum size of the command line, execute `xargs` with the `--show-limits` option
-- Unix-like systems allow embedded spaces (and even newlines!) in filenames. This causes problems for programs like `xargs` that construct argument lists for other programs. An embedded space will be treated as a delimiter, and the resulting command will interpret each space-separated word as a separate argument
+- Unix-like systems allow embedded spaces (and even newlines!) in filenames. This causes problems for programs like `xargs` that construct argument lists for other programs. An embedded space will be treated as a **delimiter**, and the resulting command will interpret each space-separated word as a separate argument
 - To overcome this, `find` and `xargs` allow the optional use of a `null` character as an argument separator
     - A `null` character is defined in ASCII as the character represented by the number zero (as opposed to, for example, the space character, which is defined in ASCII as the character represented by the number 32)
     - The `find` command provides the action `-print0`, which produces null-separated output, and the `xargs` command has the `--null` (or `-0`) option, which accepts null-separated input
@@ -221,7 +227,7 @@
 
     ```bash
     # -I causes xargs to consider each full line in the standard input to be a single argument
-                                                 # 声明 placeholder 名为 '{}'，可在后续命令中多次使用 
+    # 声明 placeholder 名为 '{}'，可在后续命令中多次使用 
     find . -type f -mtime -1 | grep pdf | xargs -I '{}' ls {}
     ```
 

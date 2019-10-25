@@ -1,3 +1,9 @@
+<!-- review 2019-10-24 15:26:15 -->
+- `f` option, used to specify the **name of the `tar` archive**, may be joined with the mode and **do not require a leading dash**. The **mode** must always be **specified first**, before any other option
+- **Caveat**: Unless we are operating as the superuser, files and directories extracted from archives take on the ownership of the user performing the restoration, rather than the original owner
+- This **convention** of using `-` to represent standard input/output is used by a number of other programs, too
+- Modern versions of GNU `tar` support both `gzip` and `bzip2` compression directly with the use of the `z` and `j` options, respectively
+---
 # Compressing files
 - Data compression is the process of removing redundancy from data
 - Compression algorithms fall into two general categories
@@ -20,9 +26,11 @@
     ls -l /etc > foo.txt
     ls -l foo.*
     # -rw-r--r-- 1 root root 9601 Jul 11 06:42 foo.txt
-    ls -l foo.*
+
     gzip foo.txt
+    ls -l foo.*
     # -rw-r--r-- 1 root root 1964 Jul 11 06:42 foo.txt.gz
+    
     gunzip foo.txt # gunzip foo.txt.gz
     ls -l foo.*
     # -rw-r--r-- 1 root root 9601 Jul 11 06:42 foo.txt
@@ -36,7 +44,7 @@
     Option | Long option | Description |
     --|--|--|
     `-c` | `--stdout`, `--to-stdout` | Write output to standard output and keep the original files.
-    `-d` | `--decompress`, `--uncompress` | Decompress. This causes gzip to act like `gunzip`.
+    `-d` | `--decompress`, `--uncompress` | Decompress. This causes `gzip` to act like `gunzip`.
     `-f` | `--force` | Force compression even if a compressed version of the original file already exists.
     `-h` | `--help` | Display usage information.
     `-l` | `--list` | List compression statistics for each file compressed.
@@ -67,12 +75,13 @@
 
     - Alternately, there is a program supplied with `gzip`, called `zcat`, that is equivalent to gunzip with the `-c` option. It can be used like the `cat` command on gzip-compressed files
 ## `bzip2`
-- The `bzip2` program, by Julian Seward, is similar to `gzip` but uses a different compression algorithm that achieves higher levels of compression at the cost of compression speed
+- The `bzip2` program, by Julian Seward, is similar to `gzip` but uses a different compression algorithm that achieves **higher levels of compression at the cost of compression speed**
 
     ```bash
     bzip2 foo.txt
     ls -l foo.txt.bz2
     # -rw-r--r-- 1 root root 1847 Jul 11 06:42 foo.txt.bz2
+
     bunzip2 foo.txt.bz2
     ls -l foo.txt.bz2
     # -rw-r--r-- 1 root root 9601 Jul 11 06:42 foo.txt
@@ -90,10 +99,10 @@
     - Archiving is often done as part of system backups
     - It is also used when old data is moved from a system to some type of long-term storage
 ## `tar`
-- `tar` is short for *tape archive* (reveals its roots as a tool for making backup tapes)
+- `tar` is short for ***tape archive*** (reveals its roots as a tool for making backup tapes)
     - While it is still used for that traditional task, it is equally adept on other storage devices
 - Filenames that end with the extension `.tar` or `.tgz` indicate a “plain” tar archive and a gzipped archive, respectively
-- A tar archive can consist of a group of separate files, one or more directory hierarchies, or a mixture of both
+- A `tar` archive can consist of a group of separate files, one or more directory hierarchies, or a mixture of both
 - Command syntax
 
     ```bash
@@ -105,9 +114,9 @@
 
     Mode | Description |
     --|--|
-    `c` | Create an archive from a list of files and/or directories.
-    `x` | Extract an archive.
-    `r` | Append specified pathnames to the end of an archive.
+    `c` | **Create** an archive from a list of files and/or directories.
+    `x` | **Extract** an archive.
+    `r` | Append specified pathnames (files) to the end of an archive.
     `t` | List the contents of an archive.
     | |
 
@@ -133,7 +142,7 @@
     ls
     ```
 
-    - `f` option, used to specify the **name** of the tar archive, may be joined with the mode and **do not require a leading dash**. The **mode** must always be **specified first**, before any other option
+    - `f` option, used to specify the **name of the `tar` archive**, may be joined with the mode and **do not require a leading dash**. The **mode** must always be **specified first**, before any other option
     - **Caveat**: Unless we are operating as the superuser, files and directories extracted from archives take on the ownership of the user performing the restoration, rather than the original owner
 - How `tar` handles pathnames in archives
 
@@ -145,7 +154,7 @@
     ls -Al
     # drwxr-xr-x 102 root root 4096 Jul 11 07:34 playground
     tar cvf playground2.tar ~/me/playground
-    # ~/me/playground expands into /root/me/playground
+    # ~/me/playground expands into /root/me/playground here
 
     mkdir foo
     cd foo
@@ -164,7 +173,7 @@
     - The default for pathnames is relative, rather than absolute. `tar` does this by simply **removing any leading slash** from the pathname when creating the archive (becomes `root/me/playground` here)
     - When we extracted the archive, it re-created the directory `home/me/playground` **relative to the current working directory**, not relative to the root directory, as would have been the case with an absolute pathname
         - It’s actually more useful this way because it allows us to extract archives to any location rather than being forced to extract them to their original locations
-- Scenery: copy the home directory and its contents from one system to another and we have a large USB hard drive that we can use for the transfer (On our modern Linux system, the drive is “automagically” mounted in the `/media` directory); also imagine that the disk has a volume name of `BigDisk` when we attach it
+- Scenario: copy the home directory and its contents from one system to another and we have a large USB hard drive that we can use for the transfer (On our modern Linux system, the drive is “automagically” mounted in the `/media` directory); also imagine that the disk has a volume name of `BigDisk` when we attach it
 	
     ```bash
     sudo tar cf /media/BigDisk/home.tar /home
@@ -179,7 +188,7 @@
 - It’s possible to limit what is extracted from the archive
 	
     ```bash
-    tar xf archive.tar pathname
+    # tar xf archive.tar pathname
 
     cd foo
     tar xf ../playground2.tar --wildcards 'root/me/playground/dir-*/file-A'
@@ -195,18 +204,18 @@
     find playground -name 'file-A' -exec tar rf playground.tar '{}' '+'
     ```
 
-    - Here we use `find` to match all the files in `playground` named `file-A` and then, using the `-exec` action, we invoke `tar` in the append mode (`r`) to add the matching files to the archive `playground.tar`
+    - Here we use `find` to match all the files in `playground` named `file-A` and then, using the `-exec` action, we invoke `tar` in the **append mode** (`r`) to add the matching files to the archive `playground.tar`
 - Using `tar` with `find` is a good way of creating *incremental backups* of a directory tree or an entire system
     - By using `find` to match files newer than a timestamp file, we could create an archive that contains only those files newer than the last archive, assuming that the timestamp file is updated right after each archive is created
 - `tar` can also make use of both standard input and output
 	
     ```bash
-    # first `-`: output file; second `-`: input file
+    # first -: standard output; second -: standard input
     find playground -name 'file-A' | tar cf - --files-from=- | gzip > playground.tgz
     ```
 
     - If the filename `-` is specified, it is taken to mean standard input or output, as needed 
-        - This convention of using `-` to represent standard input/output is used by a number of other programs, too
+        - This **convention** of using `-` to represent standard input/output is used by a number of other programs, too
     - The `--files-from` option (which may also be specified as `-T`) causes `tar` to read its list of pathnames from a file rather than the command line
     - The `.tgz` extension is the conventional extension given to gzip-compressed tar files. The extension `.tar.gz` is also used sometimes
     - Modern versions of GNU `tar` support both `gzip` and `bzip2` compression directly with the use of the <mark>`z` and `j`</mark> options, respectively
@@ -227,7 +236,7 @@
 
     - Launched the `tar` program on the remote system using `ssh`. The standard output produced on the remote system is sent to the local system for viewing
         - `ssh` allows us to execute a program remotely on a networked computer and “see” the results on the local system
-    - Take advantage of this by having `tar` create an archive (the `c` mode) and send it to standard output, rather than a file (the `f` option with the dash argument), thereby transporting the archive over the encrypted tunnel provided by `ssh` to the local system
+    - Take advantage of this by having `tar` create an archive (the `c` mode) and ***send it to standard output***, rather than a file (the `f` option with the dash argument), thereby transporting the archive over the encrypted tunnel provided by `ssh` to the local system
     - On the local system, we execute `tar` and have it expand an archive (the `x` mode) supplied from standard input (again, the `f` option with the dash argument)
 ## `zip`
 - The `zip` program is both a compression tool and an archiver
@@ -286,18 +295,18 @@
 # Synchronizing files and directories
 - A common strategy for maintaining a backup copy of a system involves keeping one or more directories synchronized with another directory (or directories) located on either the local system (usually a removable storage device of some kind) or a remote system
     - We might, for example, have a local copy of a website under development and synchronize it from time to time with the “live” copy on a remote web server
-- `rsync` can synchronize both local and remote directories by using the *`rsync` remote-update protocol*, which allows `rsync` to quickly detect the differences between two directories and perform the minimum amount of copying required to bring them into sync
+- `rsync` can synchronize both local and remote directories by using the *`rsync` remote-update protocol*, which allows `rsync` to **quickly detect** the differences between two directories and perform the **minimum amount of copying** required to bring them into sync
     - This makes `rsync` very fast and economical to use, compared to other kinds of copy programs
 - Usage
 	
     ```bash
-    rsync options source destination
+    rsync options source... destination
     ```
 
     - `source` and `destination` are one of the following:
         - A local file or directory
         - A remote file or directory in the form of `[user@]host:path`
-        - A remote rsync server specified with a URI of `rsync://[user@]host[:port]/path`
+        - A remote `rsync` server specified with a URI of `rsync://[user@]host[:port]/path`
     - Either the `source` or the `destination` must be a local file. Remote-to-remote copying is not supported
 - `rsync` local files
 	
@@ -323,7 +332,7 @@
     ```
 
     - This is handy if we want only the contents of a directory copied without creating another level of directories within the destination
-        - We can think of it as being like [ ] `source/*` in its outcome, but this method will copy all of the source directory’s content **including the hidden files**
+        - We can think of it as being like `source/*` in its outcome, but this method will copy all of the source directory’s content **including the hidden files**
 - Imaginary external hard drive mounted at `/media/BigDisk`. Create a directory named `/backup` on the external drive and then using `rsync` to copy the most important stuff from our system to the external drive
 	
     ```bash
@@ -335,11 +344,11 @@
     - Include the `--delete` option to remove files that may have existed on the backup device that no longer existed on the source device (this is irrelevant the first time we make a backup but will be useful on subsequent copies)
 ## Using `rsync` over a network
 - One of the real beauties of `rsync` is that it can be used to copy files over a network. After all, the `r` in `rsync` stands for “remote”
-- Remote copying can be done in one of two ways
+- Remote copying can be done in one of 2 ways
     1. With another system that has `rsync` installed, along with a remote shell program such as `ssh`
     	
         ```bash
-        # Assuming that remote system already had a directory named `/backup` where we could deliver our files
+        # Assuming that remote system already had a directory named /backup where we could deliver our files
         sudo rsync -av --delete --rsh=ssh /etc /home /usr/local remote-sys:/backup
         ```
     
@@ -348,11 +357,11 @@
         - Specified the remote host by prefixing its name (in this case the remote host is named `remote-sys`) to the destination pathname
     2. Using an `rsync` server
         - `rsync` can be configured to run as a daemon and listen to incoming requests for synchronization. This is often done to allow mirroring of a remote system
-            - For example, Red Hat Software maintains a large repository of software packages under development for its Fedora distribution. It is useful for software testers to mirror this collection during the testing phase of the distribution release cycle. Since files in the repository change frequently (often more than once a day), it is desirable to maintain a local mirror by periodic synchronization, rather than by bulk copying of the repository. One of these repositories is kept at Duke University; we could mirror it using our local copy of `rsync` and their `rsync` server
             	
-                ```bash
-                mkdir fedora-devel
-                rsync -av –delete rsync://archive.linux.duke.edu/fedora/linux/development/rawhide/Everything/x86_64/os/ fedora-devel
-                ```
-            
-                - The URI of the remote rsync server consists of a protocol (`rsync://`), followed by the remote hostname (`archive.linux.duke.edu`), followed by the pathname of the repository
+            ```bash
+            mkdir fedora-devel
+            rsync -av –delete rsync://archive.linux.duke.edu/fedora/linux/development/rawhide/Everything/x86_64/os/ fedora-devel
+            ```
+        
+            - For example, Red Hat Software maintains a large repository of software packages under development for its Fedora distribution. It is useful for software testers to mirror this collection during the testing phase of the distribution release cycle. Since files in the repository change frequently (often more than once a day), it is desirable to maintain a local mirror by periodic synchronization, rather than by bulk copying of the repository. One of these repositories is kept at Duke University; we could mirror it using our local copy of `rsync` and their `rsync` server
+            - The URI of the remote rsync server consists of a protocol (`rsync://`), followed by the remote hostname (`archive.linux.duke.edu`), followed by the pathname of the repository

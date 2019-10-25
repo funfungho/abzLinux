@@ -2,8 +2,8 @@
 - With other types of expansion, if you mistype a pattern, the expansion will not take place, and the `echo` command will simply display the **mistyped pattern**. With parameter expansion, if you misspell the name of a variable, the expansion will still take place but will result in an **empty string**
 - Word splitting by the shell removed extra whitespace from the `echo` command’s list of arguments
 - Double quotes: all the special characters used by the shell lose their special meaning and are treated as ordinary characters except `$` (dollar sign), `\` (backslash), and backtick &#96;
-    - Word splitting, pathname expansion, tilde expansion, and brace expansion are suppressed
-    - Parameter expansion, arithmetic expansion, and command substitution are still carried out
+    - Word splitting, pathname expansion, tilde expansion, and brace expansion are **suppressed**
+    - Parameter expansion, arithmetic expansion, and command substitution are still **carried out**
 - Use single quotes to **suppress all expansions** (including escaping character `\`)
 - Escaping character (`\`) often is done inside double quotes to selectively prevent an expansion. It is also common to use escaping to eliminate the special meaning of a character in a filename to use characters that normally have special meaning to the shell. These would include `$`, `!`, `&`, spaces, and others
 ## Expansion
