@@ -14,6 +14,8 @@
     - These are similar to dynamic link libraries (**DLLs**) in Windows
 - `/usr/lib` contains the shared libraries for the programs in `/usr/bin`
 ---
+- Technically speaking, Linux is the name of the operating system’s kernel, nothing more
+- In popular usage, Linux refers to the kernel and all the other free and open source software found in the typical Linux distribution, that is, the entire Linux ecosystem, not just the GNU components
 - The design of the file system is specified in a published standard called the *Linux Filesystem Hierarchy Standard*. Not all Linux distributions conform to the standard exactly, but most come pretty close
 
     Directory | Comments |
