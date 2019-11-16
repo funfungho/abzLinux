@@ -1,3 +1,9 @@
+# Config
+
+```bash
+# https://stackoverflow.com/questions/25084288/keep-ssh-session-alive/25087194#25087194
+```
+
 # Dependencies
 
 ```bash
@@ -15,6 +21,26 @@ yum install curl-devel
 sudo yum install autoconf
 
 sudo yum install ncurses-devel
+
+# build watch
+# http://procps.sourceforge.net/
+
+# build vim
+# https://phoenixnap.com/kb/how-to-install-vim-centos-7
+
+# build tmux
+# https://github.com/tmux/tmux
+  # install automake, yacc
+  # http://www.ruanyifeng.com/blog/2019/10/tmux.html
+
+# wget
+
+# Build Python3
+    # https://www.code-learner.com/how-to-compile-and-install-python3-from-source-code-in-centos/
+        # --with-ssl
+    # https://www.cnblogs.com/minglee/p/9232673.html
+        # sudo yum install openssl-devel
+    # delete and re build altogether
 ```
 
 # Git
@@ -120,6 +146,24 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-
 # https://yeasy.gitbooks.io/docker_practice/install/mirror.html
     # https://www.daocloud.io/mirror
 # docker info | grep -A 5 "Registry Mirrors"
+```
+
+# Fabric
+
+```bash
+# Creating build/goshim.tar.bz2
+# tar (child): bzip2: Cannot exec: No such file or directory
+# tar (child): Error is not recoverable: exiting now
+# make: *** [build/goshim.tar.bz2] Error 141
+yum install bzip2
+
+# github.com/hyperledger/fabric/vendor/github.com/miekg/pkcs11
+# vendor/github.com/miekg/pkcs11/pkcs11.go:29:18: fatal error: ltdl.h: No such file or directory
+ #include <ltdl.h>
+#                  ^
+# compilation terminated.
+# make: *** [build/bin/peer] Error 2
+yum install libtool-ltdl-devel
 ```
 
 # [Autojump](https://github.com/wting/autojump)

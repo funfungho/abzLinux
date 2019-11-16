@@ -204,7 +204,7 @@ echo The total is $100.00
     ```
 
 ### Backslash escape sequences
-- In addition to its role as the escape character, the backslash is u**sed as part of a notation to represent certain special characters** called *control codes*
+- In addition to its role as the escape character, the backslash is **used as part of a notation to represent certain special characters** called *control codes*
 - The idea behind this representation using the backslash originated in the C programming language and has been adopted by many others, including the shell
     - The first 32 characters in the ASCII coding scheme are used to transmit commands to Teletype-like devices
         - Some of these codes are familiar (tab, backspace, line feed, and carriage return), while others are not (null, end-of-transmission, and acknowledge)

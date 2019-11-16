@@ -1,0 +1,3 @@
+- error while loading shared libraries: libevent-2.1.so.6: cannot open shared object file: No such file or directory
+    - http://www.voidcn.com/article/p-ghgzqvrp-bqo.html
+    - https://blog.csdn.net/yjk13703623757/article/details/53217377

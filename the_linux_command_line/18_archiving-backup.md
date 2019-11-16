@@ -2,7 +2,7 @@
 - `f` option, used to specify the **name of the `tar` archive**, may be joined with the mode and **do not require a leading dash**. The **mode** must always be **specified first**, before any other option
 - **Caveat**: Unless we are operating as the superuser, files and directories extracted from archives take on the ownership of the user performing the restoration, rather than the original owner
 - This **convention** of using `-` to represent standard input/output is used by a number of other programs, too
-- Modern versions of GNU `tar` support both `gzip` and `bzip2` compression directly with the use of the `z` and `j` options, respectively
+- Modern versions of GNU `tar` support both `gzip` and `bzip2` **compression** directly with the use of the `z` and `j` options, respectively
 ---
 # Compressing files
 - Data compression is the process of removing redundancy from data
