@@ -1,4 +1,6 @@
 <!-- review 2019-10-24 11:40:20 -->
+- https://www.cyberciti.biz/faq/linux-unix-osxfind-files-by-date/
+---
 - The beauty of `find` is that it can be used to identify files that **meet specific criteria**, through the (slightly strange) application of *options*, *tests*, and *actions*
 - `find` and `xargs` allow the optional use of a `null` character as an argument separator
 - Combine all of the search results and launch a single instance of the command for efficiency.

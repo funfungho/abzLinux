@@ -74,6 +74,11 @@ git clone https://github.com/zsh-users/zsh.git # fatal: unable to find remote he
 # This is probably a library called 'curses' or 'ncurses'.  You may need to install a package called 'curses-devel' or 'ncurses-devel' on your system."
 
 chsh -s $(which zsh) # type without sudo
+# Add zsh to /etc/shells
+command -v zsh | sudo tee -a /etc/shells
+sudo chsh -s "$(command -v zsh)" "${USER}"
+echo $0
+# https://unix.stackexchange.com/questions/136423/making-zsh-default-shell-without-root-access/136424#136424
 
 https://github.com/robbyrussell/oh-my-zsh
 ```
@@ -132,6 +137,10 @@ sudo yum install ./docker-ce-19.03.4-3.el7.x86_64.rpm ./docker-ce-cli-19.03.4-3.
 sudo systemctl start docker
 sudo docker run hello-world 
 
+sudo groupadd docker
+sudo gpasswd -a $USER docker
+# exit and re-login
+
 # https://docs.docker.com/install/linux/linux-postinstall/
 ```
 
@@ -140,6 +149,7 @@ sudo docker run hello-world
 sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
 # auto completion
+# https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md
 # https://github.com/robbyrussell/oh-my-zsh/issues/7642#issuecomment-471164659
 
 # set registry
