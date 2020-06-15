@@ -11,6 +11,8 @@
 - The kernel maintains information about each process to help keep things organized
     - For example, each process is assigned a number called a *process ID* (PID). PIDs are assigned in ascending order, with `init` always getting PID 1. The kernel also keeps track of the **memory** assigned to each process, as well as the processes’ **readiness** to resume execution. Like files, processes also have owners and user IDs, effective user IDs, and so on
     - > https://stackoverflow.com/questions/32455684/difference-between-real-user-id-effective-user-id-and-saved-user-id/58123923#58123923
+    - > http://unixetc.co.uk/2016/05/30/linux-capabilities-and-ping/
+        - Each thread has three capability sets containing zero or more of the above capabilities: permitted, inherited, effective
 ## Viewing processes
 - The most commonly used command to view processes (there are several) is `ps`
 - By default, `ps` doesn’t show us very much, just the **processes associated with the current terminal session**
@@ -43,7 +45,7 @@
             - The process state may be followed by other characters. These indicate various exotic process characteristics. See the `ps` man page for more details
         - Using this option, we see a list of every process that we own
         - An alternate description is that this option causes `ps` to list all processes **owned by you** (same `EUID` as `ps`), or to list all processes when used together with the `a` option
-    - `aux` displays the processes **belonging to every user**. Using the options without the leading dash invokes the command with “BSD-style” behavior
+    - `aux` displays the processes **belonging to every user**. **Using the options without the leading dash invokes the command with “BSD-style” behavior**
         - The Linux version of `ps` can emulate the behavior of the `ps` program found in several different Unix implementations
 - Process state
 

@@ -1,3 +1,13 @@
+- [Config](#config)
+- [Dependencies](#dependencies)
+- [Git](#git)
+- [zsh, on-my-zsh](#zsh-on-my-zsh)
+- [Golang](#golang)
+  - [Uninstall](#uninstall)
+- [Docker](#docker)
+- [Fabric](#fabric)
+- [Autojump](#autojump)
+- [Timezone](#timezone)
 # Config
 
 ```bash
@@ -57,6 +67,9 @@ make install # cache.h:21:18: fatal error: zlib.h: No such file or directory
 # https://docs.gitlab.com/ee/gitlab-basics/create-your-ssh-keys.html
 # https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork
     # https://blog.csdn.net/wankui/article/details/53328369
+
+#### 
+sudo yum install git
 ```
 
 # zsh, on-my-zsh
@@ -68,10 +81,14 @@ git clone https://github.com/zsh-users/zsh.git # fatal: unable to find remote he
 # install curl-devel and rebuild git
 
 # https://github.com/zsh-users/zsh/blob/master/INSTALL
-# run ./Util/preconfig if no configure is found
+# run sudo yum install gcc autoconf -y && ./Util/preconfig if no configure is found
 ./configure
 # configure: error: "No terminal handling library was found on your system.
 # This is probably a library called 'curses' or 'ncurses'.  You may need to install a package called 'curses-devel' or 'ncurses-devel' on your system."
+# sudo yum -y install ncurses-devel
+make && make install
+
+# http://zsh.sourceforge.net/FAQ/zshfaq01.html#l7
 
 chsh -s $(which zsh) # type without sudo
 # Add zsh to /etc/shells
@@ -80,23 +97,23 @@ sudo chsh -s "$(command -v zsh)" "${USER}"
 echo $0
 # https://unix.stackexchange.com/questions/136423/making-zsh-default-shell-without-root-access/136424#136424
 
-https://github.com/robbyrussell/oh-my-zsh
+# install oh-my-zsh
+# https://github.com/ohmyzsh/ohmyzsh#basic-installation
 ```
 
 # Golang
 
 ```bash
 curl -o go1.13.3.linux-amd64.tar.gz  https://golang.org/doc/install?download=go1.13.3.linux-amd64.tar.gz
+# curl https://dl.google.com/go/go1.13.8.linux-amd64.tar.gz -o go1.13.8.linux-amd64.tar.gz
 sudo tar -C /usr/local -xzf go1.13.3.linux-amd64.tar.gz
 
 # https://github.com/golang/go/wiki/SettingGOPATH#zsh
 # ~/.zshrc
-export GOPATH=$HOME/golang
-export GOROOT=/usr/local/opt/go/libexec
-export GOBIN=$GOPATH/bin
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$HOME/go
 
-export PATH=$PATH:$GOPATH
-export PATH=$PATH:$GOROOT/bin
+export GOBIN=$GOPATH/bin
 ```
 
 ## [Uninstall](https://golang.org/doc/install?download=go1.13.3.linux-amd64.tar.gz#uninstall)
@@ -149,7 +166,7 @@ sudo gpasswd -a $USER docker
 sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
 # auto completion
-# https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md
+# https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh
 # https://github.com/robbyrussell/oh-my-zsh/issues/7642#issuecomment-471164659
 
 # set registry
