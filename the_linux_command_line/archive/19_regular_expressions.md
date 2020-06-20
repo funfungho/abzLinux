@@ -99,11 +99,11 @@
 - As the popularity of Unix spread beyond the United States, there grew a need to support characters not found in US English. The ASCII table was expanded to use a full 8 bits, adding characters 128–255, which accommodated many more languages. 
 - To support this capability, the POSIX standards introduced a concept called a *locale*, which could be adjusted to select the character set needed for a particular location. 
     - We can see the language setting of our system using `echo $LANG`.
-- With this setting, POSIX-compliant applications will use a dictionary collation order rather than ASCII order.
+- With this setting (LANG="en_US.UTF-8"), POSIX-compliant applications will use a dictionary collation order rather than ASCII order.
     - A character range of `[A-Z]` when interpreted in dictionary order includes all of the alphabetic characters except the lowercase `a`.
 - To partially work around this problem, the POSIX standard includes a number of character classes that provide useful ranges of characters.
 
-    Character | class Description 
+    Character class | Description 
     --|--
     `[:alpha:]` | The alphabetic characters. In ASCII, equivalent to: `[A-Za-z]`
     `[:digit:]` | The numerals 0 through 9.
@@ -168,7 +168,7 @@
     ```
 
 ## `+` — Match an Element One or More Times
-- Match only the lines consisting of groups of one or more alphabetic characters separated by single spaces
+<!-- - Match only the lines consisting of groups of one or more alphabetic characters separated by single spaces -->
 ## `{ }` — Match an Element a Specific Number of Times
 - The `{` and `}` metacharacters are used to express minimum and maximum numbers of required matches.
 
