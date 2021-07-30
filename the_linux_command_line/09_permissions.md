@@ -113,7 +113,7 @@ less /etc/shadow
 - Permissions are specified with the `r`, `w`, and `x` characters
 - Symbolic notation does offer the advantage of allowing you to set a single attribute **without disturbing** any of the others
 - `--recursive` option acts on both files and directories, so it’s not as useful as we would hope because we rarely want files and directories to have the same permissions
-- Symbolic notation examine
+- Symbolic notation example
 
     Notation | Meaning |
     --|--|
@@ -129,7 +129,7 @@ less /etc/shadow
 	
     ```bash
     > foo.txt
-    chomod 600 foo.txt
+    chmod 600 foo.txt
     ls -l foo.txt
     # -rw------- 1 root root 0 Jul 13 03:47 foo.txt
     ```

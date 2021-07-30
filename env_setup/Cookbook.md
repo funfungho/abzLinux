@@ -11,7 +11,8 @@
 # Config
 
 ```bash
-# https://stackoverflow.com/questions/25084288/keep-ssh-session-alive/25087194#25087194
+# ssh config 
+https://stackoverflow.com/questions/25084288/keep-ssh-session-alive/25087194#25087194
 ```
 
 # Dependencies
@@ -70,6 +71,11 @@ make install # cache.h:21:18: fatal error: zlib.h: No such file or directory
 
 #### 
 sudo yum install git
+
+
+## centos git from source
+https://gist.github.com/egorsmkv/30faa3e61c185a41e89cf849737d4d4b  
+https://blog.51cto.com/soige/1314599
 ```
 
 # zsh, on-my-zsh
